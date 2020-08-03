@@ -51,12 +51,16 @@ h1 {
 }
 
 .main-navigation-links > a {
+  display: inline-block;
+  width: 15%;
   color: white;
   text-decoration: none;
+  
 }
 
 .main-navigation-links > a:hover {
   font-weight: bold;
+  border: 1px solid white;
 }
 
 /* Home Page Title */
@@ -76,7 +80,7 @@ h1 {
 }
 
 /* Sign-up and Login Forms */
-#signup, .login {
+#signup-form, .login {
   width: 50%;
   margin: auto;
   padding: 2%;
