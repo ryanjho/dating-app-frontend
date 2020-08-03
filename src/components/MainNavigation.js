@@ -22,8 +22,6 @@ class MainNavigation extends Component {
                         <li>SIGN UP</li>
                     </Link>
                     
-                    >
-                    
                 </ul>
             </nav>
         )
