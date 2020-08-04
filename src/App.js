@@ -15,6 +15,11 @@ class App extends Component {
     super(props);
     this.state = {
       countries: null,
+
+      redirect: '/',
+      // Authentication
+      currentUser: '',
+      isLogin: false,
       err: ''
     }
   }
@@ -39,13 +44,18 @@ class App extends Component {
       <Router>
         <div className="App">
           <div className="header-body">
-            <Header />
+            <Header
+              isLogin={this.state.isLogin}
+            />
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/about" component={About} />
               <Route path="/FAQ" component={FAQ} />
               <Route path="/login" render={(props) =>
-                <Login err={this.state.err} />} />
+                <Login 
+                err={this.state.err} 
+                isLogin={this.state.isLogin}
+                />} />
               <Route path="/signup" render={(props) =>
                 <SignUp countries={this.state.countries}/>} />
             </Switch>

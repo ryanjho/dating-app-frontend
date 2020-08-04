@@ -19,7 +19,7 @@ class Login extends Component {
     render() {
         return (
             <React.Fragment>
-                {!this.props.isLogIn ?
+                { !this.props.isLogin ?
                     <Form className="login" onSubmit={this.props.logIn}>
                         <h2 className="text-center h2">LOG IN</h2>
                         <Form.Group as={Row}>
@@ -48,10 +48,8 @@ class Login extends Component {
                                 {this.props.err}
                             </Alert> : ''}
 
-                    </Form> : <Redirect to={this.props.redirect} />
+                    </Form> : <Redirect to="/" />
                 }
-
-
             </React.Fragment>
         )
     }
