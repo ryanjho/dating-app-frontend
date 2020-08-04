@@ -137,18 +137,12 @@ export class SignUp extends Component {
         })
     }
 
-
-
-    // On Page Load
-
-
     render() {
-
         const { email, password, userName, age, location, female, male, lookingForFemale, lookingForMale, lookingForAgeFrom, lookingForAgeTo } = this.state;
 
         return (
             <div>
-                {this.props.redirect === '/' ?
+                {!this.props.isLogin ?
                     <Form onSubmit={this.props.handleFormSubmit} id="signup-form">
                         <h2 className="text-center h2">CREATE NEW ACCOUNT</h2>
 
@@ -235,7 +229,7 @@ export class SignUp extends Component {
                         </Form.Group>
 
                     </Form>
-                    : <Redirect to={this.props.redirect} />
+                    : <Redirect to="/" />
                 }
 
 

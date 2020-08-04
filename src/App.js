@@ -57,7 +57,12 @@ class App extends Component {
                 isLogin={this.state.isLogin}
                 />} />
               <Route path="/signup" render={(props) =>
-                <SignUp countries={this.state.countries}/>} />
+                <SignUp 
+                  countries={this.state.countries}
+                  isLogin={this.state.isLogin}
+                />
+                } 
+              />
             </Switch>
           </div>
           <Footer />
