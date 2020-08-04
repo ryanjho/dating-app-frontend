@@ -15,9 +15,13 @@ class MainNavigation extends Component {
                     <Link to="/users">
                         <li>USERS</li>
                     </Link>
-                    <Link to="/login">
-                        <li>LOG IN</li>
-                    </Link>
+                    { !this.props.isLogin ? 
+                        <Link to="/login">
+                            <li>LOG IN</li>
+                        </Link>
+                    : ''
+                    }
+                    
                     <Link to="/signup">
                         <li>SIGN UP</li>
                     </Link>

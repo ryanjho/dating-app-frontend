@@ -3,10 +3,23 @@ import { Form, Col, Row, Button, Alert } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentEmail: '',
+            currentPassword: ''
+        }
+    }
+
+    // Handle Form Input Change
+    handleFormChange = event => {
+        this.setState({ [event.target.id]: event.target.value });
+    }
+
     render() {
         return (
             <React.Fragment>
-                {!this.props.isLogIn ?
+                { !this.props.isLogin ?
                     <Form className="login" onSubmit={this.props.logIn}>
                         <h2 className="text-center h2">LOG IN</h2>
                         <Form.Group as={Row}>
@@ -14,7 +27,7 @@ class Login extends Component {
                                 Email
                             </Form.Label>
                             <Col sm="8">
-                                <Form.Control type="email" id="currentEmail" placeholder="enter your email" value={this.props.currentEmail} onChange={this.props.handleChange} required />
+                                <Form.Control type="email" id="currentEmail" placeholder="enter your email" value={this.state.currentEmail} onChange={this.handleFormChange} required />
                             </Col>
                         </Form.Group>
 
@@ -23,7 +36,7 @@ class Login extends Component {
                                 Password
                             </Form.Label>
                             <Col sm="8">
-                                <Form.Control type="password" id="currentPassword" placeholder="Password" valuse={this.props.currentPassword} onChange={this.props.handleChange} required />
+                                <Form.Control type="password" id="currentPassword" placeholder="Password" valuse={this.state.currentPassword} onChange={this.handleFormChange} required />
                             </Col>
                         </Form.Group>
 
@@ -35,10 +48,8 @@ class Login extends Component {
                                 {this.props.err}
                             </Alert> : ''}
 
-                    </Form> : <Redirect to={this.props.redirect} />
+                    </Form> : <Redirect to="/" />
                 }
-
-
             </React.Fragment>
         )
     }

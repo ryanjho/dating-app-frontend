@@ -16,7 +16,7 @@ class Header extends Component {
                     </h1>
                     </Link>
                 </div>
-                <MainNavigation />
+                <MainNavigation isLogin={this.props.isLogin}/>
             </div>
         )
     }
