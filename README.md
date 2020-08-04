@@ -1,68 +1,71 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Dating App
 
-## Available Scripts
+## Project Demo
+Project Demo Link: (To Be Updated)
 
-In the project directory, you can run:
+# Project Contributors
+[Linh Le](https://github.com/linhkhanh), [Ryan Ho](https://github.com/ryanjho) and [Marius Andrian](https://github.com/mariusandrian)
 
-### `npm start`
+## Application Description
+Dating App is an online application that allows users to find and match with potential profiles that match their criteria. Users will be able to chat with other users that have also indicated interest in them. Users will also be able to find and filter potential profiles according to their criteria.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Database / Storage
+* MongoDB - NoSQL database using collections and documents
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies Used
+* HTML5, CSS , Bootstrap
+* Node.js
+* Express.js
+* ReactJS
+* Bcrypt
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Project Objective
+The main objective of this project is to create a CRUD application (Create, Read, Update and Delete) with the MVC framework (Model, View, Controller) using Node.js, MongoDB, Express and ReactJS.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## User Stories
+* As a user, I will like to be able to create an account with the following information:
+    * Username
+    * Age
+    * Gender
+    * Which gender you would like to find profiles for
+    * Add Avatar Image
+    * Set Account Password
+* As a user, I will like to be able to update my profile information:
+* As a user, I will like to be able to receive notifications on which profiles have liked me
+* As a user, I will like to be able to chat with my matched profiles
+* As a user, I will like to be able to see other potential users by filtering according to different criteria such as
+    * Gender
+    * Age
+    * Distance 
+    * Education
+    * Occupation
+    * Religion
+    * Relationship situation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Approach Taken
+* Set up MVC structure with basic CRUD routes for a user
+* Set up database with relevant collections and schema validation in MongoDB 
+* Build authentication flow for both venue owners and users
+* Update UX layer with HTML, CSS enhancements
+* Deploy application on Heroku / GitHub Pages
 
-### `npm run eject`
+## Accomplishments
+* To be updated
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Difficulties Faced
+* To Be updated
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Additional Features
+* Social Login Authentication (e.g. Google OAuth, Facebook OAuth, etc)
+* In-built chat application
+* Notifications
+* Find users nearby
+* Filter users according to different criteria (e.g. Education, Occupation, Location, Age, Gender, etc)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

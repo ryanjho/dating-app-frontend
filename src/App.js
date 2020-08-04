@@ -37,7 +37,7 @@ class App extends Component {
       position: {
         lat: null,
         long: null
-      }
+      },
       countries: null
     }
   }
