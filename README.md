@@ -3,7 +3,7 @@
 ## Project Demo
 Project Demo Link: (To Be Updated)
 
-# Project Contributors
+## Project Contributors
 [Linh Le](https://github.com/linhkhanh), [Ryan Ho](https://github.com/ryanjho) and [Marius Andrian](https://github.com/mariusandrian)
 
 ## Application Description
