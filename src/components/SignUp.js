@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Form, Col, Row, Button } from 'react-bootstrap';
+import SignUpForm from './SignUpForm';
 import usersService from '../services/usersService';
 
 export class SignUp extends Component {
@@ -91,7 +91,7 @@ export class SignUp extends Component {
                 long: null
             },
             redirect: '/login'
-        })
+        });
     }
 
     // Create New User
@@ -137,108 +137,21 @@ export class SignUp extends Component {
         })
     }
 
-
-
-    // On Page Load
-
-
     render() {
-
-        const { email, password, userName, age, location, female, male, lookingForFemale, lookingForMale, lookingForAgeFrom, lookingForAgeTo } = this.state;
+        
 
         return (
             <div>
-                {this.props.redirect === '/' ?
-                    <Form onSubmit={this.props.handleFormSubmit} id="signup-form">
-                        <h2 className="text-center h2">CREATE NEW ACCOUNT</h2>
-
-                        <Form.Group as={Row}>
-                            <Form.Label column sm={4}>Email</Form.Label>
-                            <Col sm={8}>
-                                <Form.Control type="email" placeholder="Enter email" id="email" value={email} onChange={this.handleFormChange} required />
-                            </Col>
-                        </Form.Group>
-
-                        <Form.Group as={Row}>
-                            <Form.Label column sm={4}>Password</Form.Label>
-                            <Col sm={8}>
-                                <Form.Control type="password" placeholder="Password" id="password" value={password} onChange={this.handleFormChange} required />
-                            </Col>
-                        </Form.Group>
-
-                        <Form.Group as={Row}>
-                            <Form.Label column sm={4}>UserName</Form.Label>
-                            <Col sm={8}>
-                                <Form.Control type="string" placeholder="Enter user name" id="userName" value={userName} onChange={this.handleFormChange} required />
-                            </Col>
-                        </Form.Group>
-
-                        <Form.Group as={Row}>
-                            <Form.Label column sm={4}>Age</Form.Label>
-                            <Col sm={8}>
-                                <Form.Control type="number" id="age" value={age} onChange={this.handleFormChange} min='18' required />
-                            </Col>
-                        </Form.Group>
-
-                        <Form.Group as={Row}>
-                            <Form.Label column sm={4}>Location</Form.Label>
-                            <Col sm={8}>
-                                <input type="text" name="name" list="countries" value={location} placeholder="Enter your location" id="location" onChange={this.handleFormChange} />
-                                <datalist id="countries">
-                                    {this.props.countries ?
-                                        this.props.countries.map((country, key) => {
-                                            return (
-                                                <option key={key}>{country.name}</option>
-                                            )
-                                        }) : ''}
-                                </datalist>
-                            </Col>
-                        </Form.Group>
-
-                        <Form.Group as={Row}>
-                            <Form.Label column sm={4}>Gender</Form.Label>
-                            <Col>
-                                <Form.Check inline label="Female" id="female" checked={female} onChange={this.toggleGender} />
-                                <Form.Check inline label="Male" id="male" checked={male} onChange={this.toggleGender} />
-                            </Col>
-                        </Form.Group>
-
-                        <Form.Group as={Row} encType="multipart/form-data">
-                            <Form.Label column sm={4}>Avatar</Form.Label>
-                            <Col sm={8}>
-                                <Form.Control type="file" onChange={this.handleFormChange} id="image" required />
-                            </Col>
-                        </Form.Group>
-
-                        <Form.Group as={Row}>
-                            <Form.Label column sm={4}>What are you looking for</Form.Label>
-                            <Col sm={8}>
-                                <Form.Check inline label="Female" checked={lookingForFemale} onChange={this.toggleLookingForGender} />
-
-                                <Form.Check inline label="Male" checked={lookingForMale} onChange={this.toggleLookingForGender} />
-
-                                <Form.Group as={Row}>
-                                    <Form.Label column sm={2}>From</Form.Label>
-                                    <Col sm={4}>
-                                        <Form.Control type="number" id="lookingForAgeFrom" value={lookingForAgeFrom} onChange={this.handleFormChange} min="18" required />
-                                    </Col>
-                                    <Form.Label column sm={2}>To</Form.Label>
-                                    <Col sm={4}>
-                                        <Form.Control type="number" id="lookingForAgeTo" value={lookingForAgeTo} onChange={this.handleFormChange} min="18" required />
-                                    </Col>
-                                </Form.Group>
-                            </Col>
-                        </Form.Group>
-
-                        <Form.Group className="text-center">
-                            <Button variant="primary" type="submit"> Submit</Button>
-                        </Form.Group>
-
-                    </Form>
-                    : <Redirect to={this.props.redirect} />
-                }
-
-
+                { !this.props.isLogin ? 
+                <SignUpForm 
+                    countries={this.props.countries}
+                    newUser={this.state}                     
+                    toggleGender={this.toggleGender}
+                    toggleLookingForGender={this.toggleLookingForGender}
+                    handleFormChange={this.handleFormChange}
+                    handleFormSubmit = {this.handleFormSubmit}
+                /> 
+                : <Redirect to="/" /> }
             </div>
         )
     }

@@ -16,7 +16,10 @@ class Header extends Component {
                     </h1>
                     </Link>
                 </div>
-                <MainNavigation isLogin={this.props.isLogin}/>
+                <MainNavigation 
+                    isLogin={this.props.isLogin}
+                    logout={this.props.logout}
+                />
             </div>
         )
     }
