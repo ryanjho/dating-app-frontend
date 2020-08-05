@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class MainNavigation extends Component {
     render() {
@@ -15,17 +15,20 @@ class MainNavigation extends Component {
                     <Link to="/users">
                         <li>USERS</li>
                     </Link>
-                    { !this.props.isLogin ? 
-                        <Link to="/login">
-                            <li>LOG IN</li>
-                        </Link>
-                    : ''
+                    {!this.props.isLogin ?
+                        <React.Fragment>
+                            <Link to="/login">
+                                <li>LOG IN</li>
+                            </Link>
+                            <Link to="/signup">
+                                <li>SIGN UP</li>
+                            </Link>
+                        </React.Fragment>
+                    :   <React.Fragment>
+                            <Link to="/"><li onClick={this.props.logout}>Sign Out</li></Link>
+                        </React.Fragment>
+                        
                     }
-                    
-                    <Link to="/signup">
-                        <li>SIGN UP</li>
-                    </Link>
-                    
                 </ul>
             </nav>
         )

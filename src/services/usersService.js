@@ -17,8 +17,8 @@ export default {
             return [];
         }
     },
-    async create (newOne) {
-        const response = await apiUtil.post(buildUrl('/'), newOne);
+    async create (newUser) {
+        const response = await apiUtil.post(buildUrl('/'), newUser);
         return response.data;
     },
     async delete (id) {
