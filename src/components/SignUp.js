@@ -23,6 +23,8 @@ export class SignUp extends Component {
                 lat: null,
                 long: null
             },
+            isSignup: false,
+            newUser: {}
         }
     }
 
@@ -90,7 +92,7 @@ export class SignUp extends Component {
                 lat: null,
                 long: null
             },
-            redirect: '/login'
+            isSignup: true
         });
     }
 
@@ -138,11 +140,9 @@ export class SignUp extends Component {
     }
 
     render() {
-        
-
         return (
             <div>
-                { !this.props.isLogin ? 
+                { !this.state.isSignup ? 
                 <SignUpForm 
                     countries={this.props.countries}
                     newUser={this.state}                     
@@ -151,7 +151,7 @@ export class SignUp extends Component {
                     handleFormChange={this.handleFormChange}
                     handleFormSubmit = {this.handleFormSubmit}
                 /> 
-                : <Redirect to="/" /> }
+                : <Redirect to='/login' /> }
             </div>
         )
     }
