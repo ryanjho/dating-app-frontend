@@ -7,7 +7,7 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Footer from './components/Footer';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import countries from 'countries-list';
 import sessionService from './services/sessionService';
 import usersService from './services/usersService';
@@ -17,8 +17,6 @@ class App extends Component {
     super(props);
     this.state = {
       countries: null,
-
-      redirect: '/',
       // Authentication
       currentUser: {},
       isLogin: false,
@@ -41,7 +39,7 @@ class App extends Component {
   // Get All Users
   fetchUsers = async () => {
     const users = await usersService.getAll();
-    console.log(users);
+ 
     this.setState( { users: users });
     return users;
   }
@@ -49,7 +47,8 @@ class App extends Component {
   // Check User Authentication
   checkAuthentication = async () => {
     const result = await sessionService.checkAuthentication();
-    if (result.isLogin) {
+  
+    if (result.isLogIn) {
       this.fetchUsers();
       const currentUser = localStorage.getItem('currentUser');
       this.setState({
@@ -78,8 +77,6 @@ class App extends Component {
       currentUser: {},
       users: []
     })
-
-    return <Redirect to ="/" />
   }
   
   // Calculate Distance
@@ -118,24 +115,23 @@ class App extends Component {
             <Header
               isLogin={this.state.isLogin}
               logout={this.logout}
+              currentUserName={this.state.currentUser.userName}
             />
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/about" component={About} />
               <Route path="/FAQ" component={FAQ} />
-              <Route path="/login" render={(props) =>
+              <Route path="/login" render={() =>
                 <Login 
                   err={this.state.err}
                   currentUser={this.state.currentUser}
                   isLogin={this.state.isLogin}
                   login={this.login}
-                  login = {this.login}
                   fetchUsers = {this.fetchUsers}
                 />} />
-              <Route path="/signup" render={(props) =>
+              <Route path="/signup" render={() =>
                 <SignUp 
                   countries={this.state.countries}
-                  isLogin={this.state.isLogin}
                 />
                 } 
               />
