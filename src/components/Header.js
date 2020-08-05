@@ -18,7 +18,7 @@ class Header extends Component {
                 </div>
                 <MainNavigation
                     currentUserName={this.props.currentUserName}
-                    isLogin={this.props.isLogin}
+                    isLogIn={this.props.isLogIn}
                     logout={this.props.logout}
                 />
             </div>

@@ -92,7 +92,7 @@ export class SignUp extends Component {
                 lat: null,
                 long: null
             },
-            isSignup: true
+            isSignUp: true
         });
     }
 
@@ -111,8 +111,8 @@ export class SignUp extends Component {
             age: parseInt(this.state.age),
             image: this.state.image,
             location: this.state.location,
-            lookingForAgeFrom: this.state.lookingForAgeFrom,
-            lookingForAgeTo: this.state.lookingForAgeTo,
+            lookingForAgeFrom: parseInt(this.state.lookingForAgeFrom),
+            lookingForAgeTo: parseInt(this.state.lookingForAgeTo),
             password: this.state.password
         };
 
@@ -142,7 +142,7 @@ export class SignUp extends Component {
     render() {
         return (
             <div>
-                { !this.state.isSignup ? 
+                { !this.state.isSignUp ? 
                 <SignUpForm 
                     countries={this.props.countries}
                     newUser={this.state}                     

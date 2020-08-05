@@ -49,7 +49,7 @@ class Login extends Component {
     render() {
         return (
             <React.Fragment>
-                { !this.props.isLogin ? 
+                { !this.props.isLogIn ? 
                     <LoginForm 
                         currentEmail={this.state.currentEmail}
                         currentPassword={this.state.currentPassword}
