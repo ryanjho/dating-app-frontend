@@ -18,15 +18,8 @@ h1 {
   background-size: cover; /* */
   color: #fffdfb;
   opacity: 0.7;
-  min-height: 700px;
+  min-height: 1000px;
   padding-bottom: 5%;
-}
-
-/* Container */
-.container {
-  display: flex;
-  flex-flow: column wrap;
-  margin: 0 auto;
 }
 
 /* Header Component */
@@ -96,6 +89,16 @@ h1 {
   background: rgba(0, 0, 0, 0.5); 
 }
 
+/* Main component */
+.list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+.card {
+  width: 30%;
+  color: black;
+}
 /* Footer */
 footer {
   display: flex;
@@ -108,9 +111,4 @@ footer {
   font-size: 17px;
   border-top: 2px solid rgb(117, 99, 19);
   padding: 1%;
-}
-
-/* Text AlignCenter */
-.text-center {
-  text-align: center;
 }

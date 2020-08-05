@@ -6,6 +6,7 @@ import FAQ from './components/FAQ';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Footer from './components/Footer';
+import Main from './components/Main';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import countries from 'countries-list';
@@ -19,9 +20,10 @@ class App extends Component {
       countries: null,
       // Authentication
       currentUser: {},
-      isLogin: false,
+      isLogIn: false,
       err: '',
-      users: []
+      users: [],
+      foundUsers: 0,
     }
   }
 
@@ -36,47 +38,64 @@ class App extends Component {
     })
   }
 
-  // Get All Users
+  // Get filtered Users
   fetchUsers = async () => {
     const users = await usersService.getAll();
- 
-    this.setState( { users: users });
-    return users;
-  }
-
+    const filterdUsers = users.filter(user => user.gender === this.state.currentUser.lookingForGender 
+        && user.age >= this.state.currentUser.lookingForAgeFrom 
+        && user.age <= this.state.currentUser.lookingForAgeTo)
+    this.setState({ 
+        users: filterdUsers,
+        foundUsers: filterdUsers.length
+    });
+  
+    return filterdUsers;
+}
   // Check User Authentication
   checkAuthentication = async () => {
     const result = await sessionService.checkAuthentication();
   
     if (result.isLogIn) {
-      this.fetchUsers();
       const currentUser = localStorage.getItem('currentUser');
       this.setState({
-        isLogin: true,
+        isLogIn: true,
         currentUser: JSON.parse(currentUser)
       })
+      this.fetchUsers();
     }
   }
 
   // Login
-  login = (currentUser) => {
+  login = async (currentUser) => {
       this.setState({
         currentUser: currentUser,
-        isLogin: true
+        isLogIn: true
       })
+      this.fetchUsers();
+
+      // Update Log In situation of user in database
+      await usersService.updateCompletionStatus(this.state.currentUser._id, {
+        isLogIn: true
+    })
   }
 
   // Logout
   logout = async () => {
     await sessionService.logOut();
-    
-    //Reset LocalStorage
-    localStorage.clear();
-    this.setState({
-      isLogin: false,
-      currentUser: {},
-      users: []
-    })
+        // reset localStoreage
+        localStorage.clear();
+        this.setState({
+            isLogIn: false,
+            currentUser: '',
+            redirect: '/',
+            err: '',
+            foundUsers: 0,
+            users: []
+        })
+        // update Log In situation of user in database
+        await usersService.updateCompletionStatus(this.state.currentUser._id, {
+            isLogIn: false
+        })
   }
   
   // Calculate Distance
@@ -113,7 +132,7 @@ class App extends Component {
         <div className="App">
           <div className="header-body">
             <Header
-              isLogin={this.state.isLogin}
+              isLogIn={this.state.isLogIn}
               logout={this.logout}
               currentUserName={this.state.currentUser.userName}
             />
@@ -125,7 +144,7 @@ class App extends Component {
                 <Login 
                   err={this.state.err}
                   currentUser={this.state.currentUser}
-                  isLogin={this.state.isLogin}
+                  isLogIn={this.state.isLogIn}
                   login={this.login}
                   fetchUsers = {this.fetchUsers}
                 />} />
@@ -134,6 +153,14 @@ class App extends Component {
                   countries={this.state.countries}
                 />
                 } 
+              />
+              <Route path='/users' render={() => 
+                <Main 
+                  isLogIn={this.state.isLogIn}
+                  users={this.state.users}
+                  foundUsers={this.state.foundUsers}
+                 />
+              } 
               />
             </Switch>
           </div>

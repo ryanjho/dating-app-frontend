@@ -15,7 +15,7 @@ class MainNavigation extends Component {
                     <Link to="/users">
                         <li>USERS</li>
                     </Link>
-                    {!this.props.isLogin ?
+                    {!this.props.isLogIn ?
                         <React.Fragment>
                             <Link to="/login">
                                 <li>LOG IN</li>
