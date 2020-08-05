@@ -6,6 +6,7 @@ class ListUser extends Component {
         return (
             <div>
                 <h1 className="text-center">{this.props.foundUsers} users found</h1>
+                
                 {this.props.isLogIn ?
                     <div className="list">
                         {this.props.users ?
