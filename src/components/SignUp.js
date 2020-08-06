@@ -19,10 +19,6 @@ export class SignUp extends Component {
             lookingForMale: false,
             lookingForAgeFrom: 18,
             lookingForAgeTo: 30,
-            position: {
-                lat: null,
-                long: null
-            },
             isSignup: false,
             newUser: {}
         }
@@ -43,39 +39,13 @@ export class SignUp extends Component {
     }
 
     // Handle Form Submit
-    handleFormSubmit = event => {
+    handleFormSubmit = async(event) => {
         event.preventDefault();
-        this.getLocation();
-    }
-
-    // Get Location
-    getLocation = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.showPosition)
-        } else {
-            console.log('Geolocation is not supported by this browser');
-        }
-    }
-
-    // Get New User Position And Create New User
-    showPosition = async (position) => {
-
-        // Get Position
-        this.setState({
-            position: {
-                lat: position.coords.latitude,
-                long: position.coords.longitude
-            }
-        });
+        // this.getLocation();
         const newUser = await this.createNewUser();
-
-        // Add User's Position
-        newUser.position = this.state.position;
-
-        // Add New User To Database
-        await usersService.create(newUser);
-
-        this.setState({
+         // Add New User To Database
+         await usersService.create(newUser);
+         this.setState({
             email: '',
             userName: '',
             age: 18,
@@ -88,10 +58,6 @@ export class SignUp extends Component {
             lookingForMale: false,
             lookingForAgeFrom: 18,
             lookingForAgeTo: 30,
-            position: {
-                lat: null,
-                long: null
-            },
             isSignUp: true
         });
     }

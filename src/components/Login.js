@@ -12,7 +12,7 @@ class Login extends Component {
             error: ''
         }
     }
-    
+
     // Handle Form Input Change
     handleFormChange = event => {
         this.setState({ [event.target.id]: event.target.value });
@@ -30,7 +30,7 @@ class Login extends Component {
         if (!currentUser.err) {
             // Set currentUser to Local Storage
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            
+
             this.setState({
                 currentEmail: '',
                 currentPassword: '',
@@ -42,22 +42,20 @@ class Login extends Component {
                 error: currentUser.err
             });
         }
-
-
     }
 
     render() {
         return (
             <React.Fragment>
-                { !this.props.isLogIn ? 
-                    <LoginForm 
+                {!this.props.isLogIn ?
+                    <LoginForm
                         currentEmail={this.state.currentEmail}
                         currentPassword={this.state.currentPassword}
                         error={this.state.error}
                         handleFormChange={this.handleFormChange}
                         handleFormSubmit={this.handleFormSubmit}
                     />
-                     : <Redirect to="/users" />
+                    : <Redirect to="/users" />
                 }
             </React.Fragment>
         )
