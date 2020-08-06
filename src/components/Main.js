@@ -12,16 +12,16 @@ class ListUser extends Component {
                     <div className="list">
                         {this.props.users ?
                             <div className="carousel-wrapper">
-                                <Carousel>
+                                <Carousel className="carousel-style" showThumbs={false}>
                                     {this.props.users.map((user, index) => {
                                         return (
-                                            <div className="card">
-                                                <img src={user.image} className="card-img-top" alt={user.userName} />
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{user.userName}</h5>
-                                                    <p class="card-text">{user.age}</p>
-                                                    <p class="card-text">{user.gender}</p>
-                                                    <p class="card-text">{user.location}</p>
+                                            <div className="user-image">
+                                                <img width={300} height={480} src={user.image} alt={user.userName} className="image-user"/>
+                                                <div>
+                                                    <h5>{user.userName}</h5>
+                                                    <p>{user.age}</p>
+                                                    <p>{user.gender}</p>
+                                                    <p>{user.location}</p>
                                                     <p><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                                                     </svg> Lat: {user.position.lat} Long: {user.position.long}</p>

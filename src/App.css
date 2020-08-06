@@ -91,14 +91,17 @@ h1 {
 }
 
 /* Main component */
-.card {
-  color: black;
-}
 .carousel-wrapper {
   width: 35%;
   margin: auto;
- 
 }
+
+.user-image {
+    height: 100%;
+    width: 100%;
+    padding: 5%;
+}
+
 /* Footer */
 footer {
   display: flex;
