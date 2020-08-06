@@ -170,6 +170,14 @@ class App extends Component {
         ]
     })
 }
+    // like a user
+    likeUser = async(event) => {
+      const likedUserId = event.currentTarget.getAttribute('a-key');
+      const currentUserId = JSON.parse(localStorage.getItem('currentUser'))
+      console.log(`${currentUserId._id} likes ${likedUserId} `);
+      await usersService.likeUser(currentUserId._id, likedUserId);
+      // await socket.emit('checkMatch', { currentUserId: currentUserId._id, likedUserId: likedUserId});
+  }
   // find near by users
 
   // When page is loaded
@@ -212,6 +220,7 @@ class App extends Component {
                   users={this.state.users}
                   foundUsers={this.state.foundUsers}
                   delete={this.delete}
+                  likeUser={this.likeUser}
                 />
               }
               />
