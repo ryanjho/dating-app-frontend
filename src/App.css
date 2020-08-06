@@ -97,9 +97,13 @@ h1 {
 }
 
 .sub-nav {
-  width: fit-content;
+  width: 50%;
   margin: auto;
-  padding: 1%;
+  text-align: center;
+}
+
+button {
+  margin: 1%;
 }
 .user-image {
     padding: 5%;
