@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import countries from 'countries-list';
 import sessionService from './services/sessionService';
 import usersService from './services/usersService';
+import UserNavigation from './components/UserNavigation';
 
 class App extends Component {
   constructor(props) {
@@ -200,9 +201,19 @@ class App extends Component {
           ...users.slice(0, index),
           ...users.slice(index + 1)
         ]
+
       })
     }
 
+  }
+
+    // like a user
+    likeUser = async(event) => {
+      const likedUserId = event.currentTarget.getAttribute('a-key');
+      const currentUserId = JSON.parse(localStorage.getItem('currentUser'))
+      console.log(`${currentUserId._id} likes ${likedUserId} `);
+      await usersService.likeUser(currentUserId._id, likedUserId);
+      // await socket.emit('checkMatch', { currentUserId: currentUserId._id, likedUserId: likedUserId});
   }
 
   // When page is loaded
@@ -221,6 +232,7 @@ class App extends Component {
               isLogIn={this.state.isLogIn}
               logout={this.logout}
             />
+            { this.state.isLogIn ? <UserNavigation /> : ''}
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/about" component={About} />
@@ -245,6 +257,7 @@ class App extends Component {
                   users={this.state.users}
                   foundUsers={this.state.foundUsers}
                   delete={this.delete}
+                  likeUser={this.likeUser}
                   findNearByUser={this.findNearByUser}
                 />
               }
@@ -257,6 +270,9 @@ class App extends Component {
                   foundUsers={this.state.nearByUsers.length}
                   delete={this.delete}
                   findNearByUser={this.findNearByUser}
+
+                  likeUser={this.likeUser}
+
                 />
               }
               />

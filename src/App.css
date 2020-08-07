@@ -69,6 +69,32 @@ h1 {
   border: 1px solid white;
 }
 
+/* User Navigation Bar */
+.user-navigation {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.user-navigation > h1 {
+  text-align: center;
+}
+
+.user-navigation-icons > ul {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding: 0px;
+  list-style: none;
+}
+
+.user-navigation-icons li div {
+  text-align: center;
+  color: white;
+}
+
 /* Home Page Title */
 .homepage-title {
   width: fit-content;
