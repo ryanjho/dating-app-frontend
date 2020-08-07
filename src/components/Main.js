@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
 import { Carousel } from 'react-responsive-carousel';
+import { Link } from 'react-router-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 class ListUser extends Component {
+    skipUser = (event) => {
+        const id = event.currentTarget.getAttribute('a-key');
+        this.props.delete(id);
+    }
     render() {
         return (
             <div>
@@ -14,11 +19,17 @@ class ListUser extends Component {
                         <p className="text-center">{this.props.foundUsers} users found</p>
                         <div className="sub-nav">
                             {/* find near by users */}
-                            <Button variant="light"><svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-geo" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+
+                            <Link to="/near">
+                            <Button variant="light" onClick={this.props.findNearByUser}><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M11 4a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                                 <path d="M7.5 4h1v9a.5.5 0 0 1-1 0V4z" />
-                                <path fillRule="evenodd" d="M6.489 12.095a.5.5 0 0 1-.383.594c-.565.123-1.003.292-1.286.472-.302.192-.32.321-.32.339 0 .013.005.085.146.21.14.124.372.26.701.382.655.246 1.593.408 2.653.408s1.998-.162 2.653-.408c.329-.123.56-.258.701-.382.14-.125.146-.197.146-.21 0-.018-.018-.147-.32-.339-.283-.18-.721-.35-1.286-.472a.5.5 0 1 1 .212-.977c.63.137 1.193.34 1.61.606.4.253.784.645.784 1.182 0 .402-.219.724-.483.958-.264.235-.618.423-1.013.57-.793.298-1.855.472-3.004.472s-2.21-.174-3.004-.471c-.395-.148-.749-.336-1.013-.571-.264-.234-.483-.556-.483-.958 0-.537.384-.929.783-1.182.418-.266.98-.47 1.611-.606a.5.5 0 0 1 .595.383z" />
-                            </svg></Button>{' '}
+                                <path fill-rule="evenodd" d="M6.489 12.095a.5.5 0 0 1-.383.594c-.565.123-1.003.292-1.286.472-.302.192-.32.321-.32.339 0 .013.005.085.146.21.14.124.372.26.701.382.655.246 1.593.408 2.653.408s1.998-.162 2.653-.408c.329-.123.56-.258.701-.382.14-.125.146-.197.146-.21 0-.018-.018-.147-.32-.339-.283-.18-.721-.35-1.286-.472a.5.5 0 1 1 .212-.977c.63.137 1.193.34 1.61.606.4.253.784.645.784 1.182 0 .402-.219.724-.483.958-.264.235-.618.423-1.013.57-.793.298-1.855.472-3.004.472s-2.21-.174-3.004-.471c-.395-.148-.749-.336-1.013-.571-.264-.234-.483-.556-.483-.958 0-.537.384-.929.783-1.182.418-.266.98-.47 1.611-.606a.5.5 0 0 1 .595.383z" />
+                            </svg></Button>
+                            </Link>
+
+                  
+
 
                             {/* filter users */}
                             <Button variant="light">
@@ -58,11 +69,11 @@ class ListUser extends Component {
                                                     {/* ACTION */}
                                                     <div className="sub-nav">
                                                         {/* ignore user */}
-                                                        <Button a-key={user._id} onClick={this.props.delete} variant="btn btn-light">
-                                                            <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                                <path fillRule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z" />
-                                                                <path fillRule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z" />
-                                                            </svg>
+
+                                                        <Button a-key={user._id} onClick={this.skipUser} variant="btn btn-light">
+                                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z" />
+                                                                <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z" />
                                                         </Button>
 
                                                         {/* message */}

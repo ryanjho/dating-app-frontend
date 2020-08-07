@@ -29,5 +29,22 @@ export default {
         } catch (err) {
             console.log(err)
         }
+    },
+    async getDataFacebook (accessToken) {
+        try {
+            const response = await apiUtil.post(buildUrl('/get_data_fb'), accessToken);
+            return response.data
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    async logInWithFb (email) {
+        try {
+            const response = await apiUtil.post(buildUrl('/log_in_with_fb'), email);
+            return response.data
+        } catch (err) {
+            console.log(err)
+        }
     }
+
 };
