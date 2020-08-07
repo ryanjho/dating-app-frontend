@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
 import { Carousel } from 'react-responsive-carousel';
-import { Link } from 'react-router-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-class ListUser extends Component {
+class NearByUsers extends Component {
     skipUser = (event) => {
         const id = event.currentTarget.getAttribute('a-key');
-        this.props.delete(id);
+        this.props.delete(id,'near');
+        console.log('near');
     }
     render() {
         return (
@@ -17,24 +17,12 @@ class ListUser extends Component {
                         <p className="text-center">{this.props.foundUsers} users found</p>
                         <div className="sub-nav">
                             {/* find near by users */}
-                            <Link to="/near">
                             <Button variant="light" onClick={this.props.findNearByUser}><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M11 4a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                                 <path d="M7.5 4h1v9a.5.5 0 0 1-1 0V4z" />
                                 <path fill-rule="evenodd" d="M6.489 12.095a.5.5 0 0 1-.383.594c-.565.123-1.003.292-1.286.472-.302.192-.32.321-.32.339 0 .013.005.085.146.21.14.124.372.26.701.382.655.246 1.593.408 2.653.408s1.998-.162 2.653-.408c.329-.123.56-.258.701-.382.14-.125.146-.197.146-.21 0-.018-.018-.147-.32-.339-.283-.18-.721-.35-1.286-.472a.5.5 0 1 1 .212-.977c.63.137 1.193.34 1.61.606.4.253.784.645.784 1.182 0 .402-.219.724-.483.958-.264.235-.618.423-1.013.57-.793.298-1.855.472-3.004.472s-2.21-.174-3.004-.471c-.395-.148-.749-.336-1.013-.571-.264-.234-.483-.556-.483-.958 0-.537.384-.929.783-1.182.418-.266.98-.47 1.611-.606a.5.5 0 0 1 .595.383z" />
                             </svg></Button>
-                            </Link>
 
-                            {/* filter users */}
-                            <Button variant="light">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-                                    <path fill-rule="evenodd" d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z" />
-                                    <circle cx="3.5" cy="5.5" r=".5" />
-                                    <circle cx="3.5" cy="8" r=".5" />
-                                    <circle cx="3.5" cy="10.5" r=".5" />
-                                </svg>
-                            </Button>
                         </div>
                         {this.props.users ?
                             <div className="carousel-wrapper">
@@ -42,9 +30,9 @@ class ListUser extends Component {
                                     {this.props.users.map((user, index) => {
                                         return (
                                             <div className="user-image">
-                                                <img width={250} height={380} src={user.image} alt={user.userName} className="image-user" />
+                                                <img width={250} height={380} src={user.user.image} alt={user.userName} className="image-user" />
                                                 <div>
-                                                    <h4>{user.userName}</h4>
+                                                    <h4>{user.user.userName}</h4>
                                                     {/* Name */}
                                                     <p><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-emoji-laughing" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -54,16 +42,16 @@ class ListUser extends Component {
                                                     {/* Gender */}
                                                     <p><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                                    </svg> {user.gender}</p>
+                                                    </svg> {user.user.gender}</p>
                                                     {/* Where */}
                                                     <p><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                                    </svg> {user.location} </p>
+                                                    </svg> {user.dist} Km </p>
 
                                                     {/* ACTION */}
                                                     <div className="sub-nav">
                                                         {/* ignore user */}
-                                                        <Button a-key={user._id} onClick={this.skipUser} variant="btn btn-light">
+                                                        <Button a-key={user.user._id} onClick={this.skipUser} variant="btn btn-light">
                                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                                 <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z" />
                                                                 <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z" />
@@ -99,5 +87,5 @@ class ListUser extends Component {
         )
     }
 }
-export default ListUser
+export default NearByUsers
 

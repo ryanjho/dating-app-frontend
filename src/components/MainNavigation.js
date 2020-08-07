@@ -13,7 +13,7 @@ class MainNavigation extends Component {
                         <li>FAQ</li>
                     </Link>
                     <Link to="/users">
-                        <li>USERS</li>
+                        <li>FIND LOVE</li>
                     </Link>
                     {!this.props.isLogIn ?
                         <React.Fragment>

@@ -10,7 +10,6 @@ export default {
     async getAll () {
         try {
             const response = await apiUtil.get(buildUrl('/'));
-            console.log(response.data);
             return response.data;
         } catch (err) {
             console.log(err);

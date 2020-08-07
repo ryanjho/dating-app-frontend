@@ -12,7 +12,7 @@ export class SignUpForm extends Component {
 
         return (
             <React.Fragment>
-                <Form onSubmit={handleFormSubmit} id="signup-form">
+                <Form onSubmit={handleFormSubmit} className="signup-form">
                         <h2 className="text-center h2">CREATE NEW ACCOUNT</h2>
 
                         <Form.Group as={Row}>

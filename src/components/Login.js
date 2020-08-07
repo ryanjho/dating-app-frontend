@@ -9,7 +9,8 @@ class Login extends Component {
         this.state = {
             currentEmail: '',
             currentPassword: '',
-            error: ''
+            error: '',
+            isForgotPassword: false
         }
     }
 
@@ -26,7 +27,12 @@ class Login extends Component {
             password: this.state.currentPassword
         }
 
-        const currentUser = await sessionService.logIn(user);
+       this.logInSubmit(user)
+    }
+
+    logInSubmit = async (user, tool) => {
+        let currentUser = undefined;
+        tool === "facebook" ? currentUser = await sessionService.logInWithFb(user) : currentUser = await sessionService.logIn(user);
         if (!currentUser.err) {
             // Set currentUser to Local Storage
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
@@ -43,6 +49,25 @@ class Login extends Component {
             });
         }
     }
+    forgetPassword = () => {
+        this.setState({
+            isForgotPassword: true
+        })
+    }
+
+    sendEmail = () => {
+        this.setState({
+            isForgotPassword: false
+        })
+    }
+
+    responseFacebook = async (response) => {
+        const data = await sessionService.getDataFacebook({ accessToken: response.accessToken})
+        console.log(data);
+        this.logInSubmit({
+            email: data.email
+        }, 'facebook')
+    }
 
     render() {
         return (
@@ -54,6 +79,10 @@ class Login extends Component {
                         error={this.state.error}
                         handleFormChange={this.handleFormChange}
                         handleFormSubmit={this.handleFormSubmit}
+                        forgetPassword={this.forgetPassword}
+                        isForgotPassword={this.state.isForgotPassword}
+                        sendEmail={this.sendEmail}
+                        responseFacebook={this.responseFacebook}
                     />
                     : <Redirect to="/users" />
                 }
