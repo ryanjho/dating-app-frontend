@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import countries from 'countries-list';
 import sessionService from './services/sessionService';
 import usersService from './services/usersService';
+import UserNavigation from './components/UserNavigation';
 
 class App extends Component {
   constructor(props) {
@@ -196,6 +197,7 @@ class App extends Component {
               logout={this.logout}
               currentUserName={this.state.currentUser.userName}
             />
+            { this.state.isLogIn ? <UserNavigation /> : ''}
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/about" component={About} />
