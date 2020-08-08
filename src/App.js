@@ -84,6 +84,10 @@ class App extends Component {
         currentUser: JSON.parse(currentUser)
       })
       this.fetchUsers();
+
+      // Crete new socket room after check authentication
+      console.log('creating new socket room from authentication');
+      socket.emit('join', {id: this.state.currentUser._id});
     }
   }
 
@@ -95,6 +99,10 @@ class App extends Component {
     })
     this.fetchUsers();
     this.getLocation();
+
+    // Crete new socket room
+    console.log('creating new socket room');
+    socket.emit('join', {id: currentUser._id});
   }
 
   // Logout
@@ -249,7 +257,6 @@ class App extends Component {
     this.getLocation();
 
     // Retrieve data from socket.io server
-    socket.on('press', (data) => console.log(data));   
     socket.on('matched', (data) => this.setState({matchModalContent: data, showMatchModal: true, backgroundBlur: true}));
   }
 

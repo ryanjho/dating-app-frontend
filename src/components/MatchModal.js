@@ -15,6 +15,7 @@ export class MatchModal extends Component {
                         <h2>You're Matched!</h2>
                         <p>You and {this.props.matchModalContent.userName} liked each other.</p>
                         <p>Time to say hello!</p>
+                        <img className="modal-liked-img" src={this.props.matchModalContent.currentUserImage}></img>
                         <img className="modal-liked-img" src={this.props.matchModalContent.image}></img>
                         <div>
                             <Button variant="contained" color="secondary" component={Link} to="/messages" onClick={(e) => this.onClose(e)}>
