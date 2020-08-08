@@ -43,7 +43,7 @@ class LoginForm extends Component {
 
                         <FacebookLogin
                             appId="577117482961429"
-                            autoLoad
+                            
                             callback={this.props.responseFacebook}
                             fields="email"
                             scope="public_profile,email"
