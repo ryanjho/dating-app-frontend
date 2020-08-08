@@ -25,8 +25,7 @@ class MainNavigation extends Component {
                             </Link>
                         </React.Fragment>
                         : <React.Fragment>
-                            <li>{this.props.currentUserName}</li>
-                            <Link to="/"><li onClick={this.props.logout}>Sign Out</li></Link>
+                            <Link to="/"><li onClick={this.props.logout}>SIGN OUT</li></Link>
                         </React.Fragment>
 
                     }

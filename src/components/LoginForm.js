@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Form, Col, Row, Button, Alert } from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bootstrap';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 class LoginForm extends Component {
-    
+
     render() {
         const currentEmail = this.props.currentEmail;
         const currentPassword = this.props.currentPassword;
@@ -17,23 +17,20 @@ class LoginForm extends Component {
             <React.Fragment>
                 <Form className="login" onSubmit={handleFormSubmit}>
                     <h2 className="text-center h2">LOG IN</h2>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="4">
-                            Email
-                            </Form.Label>
-                        <Col sm="8">
-                            <Form.Control type="email" id="currentEmail" placeholder="enter your email" value={currentEmail} onChange={handleFormChange} required />
-                        </Col>
-                    </Form.Group>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="email" id="currentEmail" placeholder="enter your email" value={currentEmail} onChange={handleFormChange} required className="form-control validate" />
+                     
+                        </div>
 
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="4">
-                            Password
-                            </Form.Label>
-                        <Col sm="8">
-                            <Form.Control type="password" id="currentPassword" placeholder="Password" valuse={currentPassword} onChange={handleFormChange} required />
-                        </Col>
-                    </Form.Group>
+                        <div class="md-form mb-4">
+                            <i class="fas fa-lock prefix grey-text"></i>
+                            <input type="password" id="currentPassword" placeholder="Password" valuse={currentPassword} onChange={handleFormChange} required className="form-control validate" />
+                           
+                        </div>
+
+                    </div>
 
                     <Form.Group className="text-center">
                         <Button type="submit" variant="primary">Log in</Button>
@@ -42,20 +39,22 @@ class LoginForm extends Component {
                         <Alert variant='danger'>
                             {error}
                         </Alert> : ''}
-                    <p>
-                        Log in with  <FacebookLogin
+                    <Form.Group className="text-center">
+
+                        <FacebookLogin
                             appId="577117482961429"
                             autoLoad
                             callback={this.props.responseFacebook}
                             fields="email"
                             scope="public_profile,email"
                             render={renderProps => (
-                                <Button variant="outline-primary" onClick={renderProps.onClick}><FacebookIcon /></Button> 
+                                <p>Log in with <Button variant="outline-primary"><FacebookIcon onClick={renderProps.onClick} /> </Button></p>
                             )}
                         />
-                    </p>
+
+                    </Form.Group>
                     <Form.Group className="text-center">
-                        <Button variant="outline-primary" onClick={forgetPassword}>Forget password?</Button>
+                        <Button variant="outline-info" onClick={forgetPassword}>Forget password?</Button>
                     </Form.Group>
                 </Form>
 
@@ -63,17 +62,17 @@ class LoginForm extends Component {
                 {isForgotPassword ?
                     <Form className="login" onSubmit={sendEmail}>
                         <h2 className="text-center h2">FORGET PASSWORD</h2>
-                        <Form.Group as={Row}>
-                            <Form.Label column sm="4">
-                                Email
-                        </Form.Label>
-                            <Col sm="8">
-                                <Form.Control type="email" id="currentEmail" placeholder="enter your email" value={currentEmail} onChange={handleFormChange} required />
-                            </Col>
-                        </Form.Group>
+                        <div class="modal-body mx-3">
+                            <div class="md-form mb-5">
+                                <i class="fas fa-envelope prefix grey-text"></i>
+                                <input type="email" id="currentEmail" placeholder="enter your email" value={currentEmail} onChange={handleFormChange} required className="form-control validate" />
+                            </div>
+                        </div>
                         <Form.Group className="text-center">
                             <Button type="submit" variant="primary">Send email</Button>
                         </Form.Group>
+
+
                     </Form>
                     : ''}
 

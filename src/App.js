@@ -14,7 +14,11 @@ import countries from 'countries-list';
 import sessionService from './services/sessionService';
 import usersService from './services/usersService';
 import UserNavigation from './components/UserNavigation';
+
+import Information from './components/information';
+
 import Profile from './components/Profile';
+
 
 class App extends Component {
   constructor(props) {
@@ -180,7 +184,7 @@ class App extends Component {
       const lat2 = logInUsers[i].position.lat;
       const long2 = logInUsers[i].position.long
       const dist = Math.round(this.distance(lat1, long1, lat2, long2, 'K'));
-      nearByUsers.push({
+      if (dist <= 2) nearByUsers.push({
         user: logInUsers[i],
         dist: dist
       });
@@ -193,7 +197,7 @@ class App extends Component {
   // go to next user
   delete = async (id, filter) => {
     if (filter === "near") {
-      const users = this.state.nearByUsers 
+      const users = this.state.nearByUsers
       const index = users.findIndex(item => item.user._id === id)
       this.setState({
         nearByUsers: [
@@ -215,13 +219,13 @@ class App extends Component {
 
   }
 
-    // like a user
-    likeUser = async(event) => {
-      const likedUserId = event.currentTarget.getAttribute('a-key');
-      const currentUserId = JSON.parse(localStorage.getItem('currentUser'))
-      console.log(`${currentUserId._id} likes ${likedUserId} `);
-      await usersService.likeUser(currentUserId._id, likedUserId);
-      // await socket.emit('checkMatch', { currentUserId: currentUserId._id, likedUserId: likedUserId});
+  // like a user
+  likeUser = async (event) => {
+    const likedUserId = event.currentTarget.getAttribute('a-key');
+    const currentUserId = JSON.parse(localStorage.getItem('currentUser'))
+    console.log(`${currentUserId._id} likes ${likedUserId} `);
+    await usersService.likeUser(currentUserId._id, likedUserId);
+    // await socket.emit('checkMatch', { currentUserId: currentUserId._id, likedUserId: likedUserId});
   }
 
   // When page is loaded
@@ -236,54 +240,55 @@ class App extends Component {
       <Router>
         <div className="App">
           <div className="header-body">
-            <Header
-              isLogIn={this.state.isLogIn}
-              logout={this.logout}
-            />
-            { this.state.isLogIn ? <UserNavigation /> : ''}
-            <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/about" component={About} />
-              <Route path="/FAQ" component={FAQ} />
-              <Route path="/login" render={() =>
-                <Login
-                  err={this.state.err}
-                  currentUser={this.state.currentUser}
-                  isLogIn={this.state.isLogIn}
-                  login={this.login}
-                  fetchUsers={this.fetchUsers}
-                />} />
-              <Route path="/signup" render={() =>
-                <SignUp
-                  countries={this.state.countries}
-                />
-              }
+          
+              <Header
+                isLogIn={this.state.isLogIn}
+                logout={this.logout}
               />
-              <Route path='/users' render={() =>
-                <Main
-                  isLogIn={this.state.isLogIn}
-                  users={this.state.users}
-                  foundUsers={this.state.foundUsers}
-                  delete={this.delete}
-                  likeUser={this.likeUser}
-                  findNearByUser={this.findNearByUser}
+              {this.state.isLogIn ? <UserNavigation findNearByUser={this.findNearByUser} /> : ''}
+              <Switch>
+                <Route path="/" exact component={Home} />
+                <Route path="/about" component={About} />
+                <Route path="/FAQ" component={FAQ} />
+                <Route path="/login" render={() =>
+                  <Login
+                    err={this.state.err}
+                    currentUser={this.state.currentUser}
+                    isLogIn={this.state.isLogIn}
+                    login={this.login}
+                    fetchUsers={this.fetchUsers}
+                  />} />
+                <Route path="/signup" render={() =>
+                  <SignUp
+                    countries={this.state.countries}
+                  />
+                }
                 />
-              }
-              />
-
-              <Route path='/near' render={() =>
-                <NearByUsers
-                  isLogIn={this.state.isLogIn}
-                  users={this.state.nearByUsers}
-                  foundUsers={this.state.nearByUsers.length}
-                  delete={this.delete}
-                  findNearByUser={this.findNearByUser}
-
-                  likeUser={this.likeUser}
-
+                <Route path='/users' render={() =>
+                  <Main
+                    isLogIn={this.state.isLogIn}
+                    users={this.state.users}
+                    foundUsers={this.state.foundUsers}
+                    delete={this.delete}
+                    likeUser={this.likeUser}
+                  />
+                }
                 />
-              }
-              />
+
+                <Route path='/near' render={() =>
+                  <NearByUsers
+                    isLogIn={this.state.isLogIn}
+                    users={this.state.nearByUsers}
+                    foundUsers={this.state.nearByUsers.length}
+                    delete={this.delete}
+                    findNearByUser={this.findNearByUser}
+
+                    likeUser={this.likeUser}
+
+                  />
+                }
+                />
+
 
               <Route path="/profile" render={() => 
                 <Profile 
@@ -293,7 +298,9 @@ class App extends Component {
               } 
               />
             </Switch>
+
           </div>
+          <Information />
           <Footer />
         </div>
       </Router>

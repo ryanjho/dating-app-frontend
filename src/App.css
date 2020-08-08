@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&family=Barlow:wght@200;300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&family=Nunito:wght@200;400;700;800&family=Roboto+Slab:wght@400;600;800&display=swap');
 
 body {
   background-color: #fffdfb;
-  font-family: 'Barlow', sans-serif;
-  font-size: 18px;
+  font-family: 'Lora', serif;
+  font-size: 17px;
 }
 /* home page */
 
@@ -18,22 +18,26 @@ h1 {
 /* Header-Body Sections */
 .header-body {
   background-image: url('https://auracle.app/wp-content/uploads/2020/03/scott-broome-BcVvVvqiCGA-unsplash-scaled-e1585640369400.jpg');
-  background-position: center; /* Center the image */
+
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* */
   color: #fffdfb;
-  opacity: 0.8;
   min-height: 700px;
   padding-bottom: 5%;
+  opacity: 0.8;
+  margin-bottom: 8%;
 }
 
+.app-name {
+  font-size: 40px;
+}
 /* Header Component */
 .header {
   padding: 1%;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 .logo {
@@ -98,22 +102,21 @@ h1 {
 /* Home Page Title */
 .homepage-title {
   width: fit-content;
-  margin:  20% 30% 10% 36%;
+  margin:  24% 20% 10% 31%;
   text-align: center;
-  
 }
 
 .homepage-title > h2 {
-  font-size: 80px;
+  font-size: 70px;
   border-top: 3px solid white;
   padding: 2% 0;
-  font-family: 'Barlow Condensed', sans-serif;
-
+  font-family: 'Roboto Slab', serif;
+ 
 }
 
 /* Sign-up and Login Forms */
-.signup-form, .login {
-  width: 50%;
+.signup-form {
+  width: 40%;
   margin: 3% auto;
   padding: 2%;
   border-radius: 20px;
@@ -121,20 +124,25 @@ h1 {
   background: rgba(0, 0, 0, 0.5); 
 }
 
+.login {
+  width: 35%;
+  margin: 3% auto;
+  padding: 1%;
+  border-radius: 20px;
+  background: rgb(0, 0, 0); /* Fallback color */
+  background: rgba(0, 0, 0, 0.5); 
+}
+.form-control:focus {
+  color: white;
+}
 /* Main component */
 .carousel-wrapper {
   width: 35%;
   margin: auto;
 }
 
-.sub-nav {
-  width: 50%;
-  margin: auto;
-  text-align: center;
-}
-
 button {
-  margin: 1%;
+  margin: 0 1%;
 }
 .user-image {
     padding: 5%;
@@ -169,12 +177,46 @@ button {
 footer {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   text-align: center;
-  color: rgb(99, 77, 8);
+  color: white;
   margin-top: 3%;
   font-weight: lighter;
   font-size: 17px;
   border-top: 2px solid rgb(117, 99, 19);
   padding: 1%;
+  background: rgb(99, 77, 8);;
+}
+
+/* Information page */
+.carousel-container {
+  width: 50%;
+  margin: 8% auto;
+
+}
+
+.new-title {
+  border-bottom: 3px solid black;
+  width: fit-content;
+  margin: auto;
+  padding: 2%;
+  border-radius: 10px;
+}
+
+.tips {
+  padding: 8%;
+}
+
+.bolder {
+  margin-top: 5%;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+}
+
+.paper {
+  max-height: 500px;
+  overflow: scroll;
+}
+.carousel .slide .legend{
+  font-size: 20px;
 }
