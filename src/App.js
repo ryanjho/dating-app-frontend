@@ -14,6 +14,7 @@ import countries from 'countries-list';
 import sessionService from './services/sessionService';
 import usersService from './services/usersService';
 import UserNavigation from './components/UserNavigation';
+import Profile from './components/Profile';
 
 class App extends Component {
   constructor(props) {
@@ -275,6 +276,11 @@ class App extends Component {
 
                 />
               }
+              />
+
+              <Route path="/profile" render={() => 
+                <Profile currentUser={this.state.currentUser}/>
+              } 
               />
             </Switch>
           </div>
