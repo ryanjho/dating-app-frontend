@@ -16,6 +16,14 @@ export default {
             return [];
         }
     },
+    async getOne(id) {
+        try {
+            const response = await apiUtil.get(buildUrl(`/${id}`));
+            return response.data;
+        } catch(err) {
+            console.log(err);
+        }
+    },
     async create (newUser) {
         const response = await apiUtil.post(buildUrl('/'), newUser);
         return response.data;

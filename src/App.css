@@ -13,7 +13,7 @@ h1 {
 }
 
 .container {
-  margin-top: 5%;
+  
 }
 /* Header-Body Sections */
 .header-body {
@@ -146,6 +146,31 @@ button {
 }
 .user-image {
     padding: 5%;
+}
+
+.container {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.user-profile {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+.user-actions, .profile-image {
+  margin: 0 auto;
+}
+
+.user-actions {
+  display: flex;
+  flex-flow: row wrap;
+}
+.user-actions Button {
+  width: 80px;
+  margin: 10px;
 }
 
 /* Footer */

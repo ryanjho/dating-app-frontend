@@ -14,7 +14,11 @@ import countries from 'countries-list';
 import sessionService from './services/sessionService';
 import usersService from './services/usersService';
 import UserNavigation from './components/UserNavigation';
+
 import Information from './components/information';
+
+import Profile from './components/Profile';
+
 
 class App extends Component {
   constructor(props) {
@@ -97,8 +101,14 @@ class App extends Component {
       }
     });
 
-    // reset localStoreage
+    // Reset Local Storage
     localStorage.clear();
+
+    this.resetAppState();
+
+  }
+
+  resetAppState = () => {
     this.setState({
       isLogIn: false,
       currentUser: '',
@@ -136,6 +146,7 @@ class App extends Component {
       position: this.state.position
     })
   }
+
 
   // Calculate Distance
   distance(lat1, lon1, lat2, lon2, unit) {
@@ -277,8 +288,17 @@ class App extends Component {
                   />
                 }
                 />
-              </Switch>
-            
+
+
+              <Route path="/profile" render={() => 
+                <Profile 
+                  currentUser={this.state.currentUser}
+                  resetAppState={this.resetAppState}
+                />
+              } 
+              />
+            </Switch>
+
           </div>
           <Information />
           <Footer />
