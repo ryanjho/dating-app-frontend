@@ -43,7 +43,8 @@ class App extends Component {
         long: null
       },
       users: [],
-      nearByUsers: []
+      nearByUsers: [],
+      backgroundBlur: false
     }
   }
 
@@ -236,6 +237,11 @@ class App extends Component {
     await socket.emit('checkMatch', { currentUserId: currentUserId._id, likedUserId: likedUserId});
   }
 
+  // show or close modal
+   showModal = (event) => {
+    this.setState({showMatchModal: !this.state.showMatchModal});
+  }
+
   // When page is loaded
   componentDidMount() {
     this.getAllCountries();
@@ -244,7 +250,7 @@ class App extends Component {
 
     // Retrieve data from socket.io server
     socket.on('press', (data) => console.log(data));   
-    socket.on('matched', (data) => this.setState({matchModalContent: data, showMatchModal: true}));
+    socket.on('matched', (data) => this.setState({matchModalContent: data, showMatchModal: true, backgroundBlur: true}));
   }
 
   render() {
@@ -277,7 +283,7 @@ class App extends Component {
                 }
                 />
                 <Route path='/users' render={() =>
-                  <Main
+                  <Main id={this.state.backgroundBlur ? 'blur' : ''}
                     isLogIn={this.state.isLogIn}
                     users={this.state.users}
                     foundUsers={this.state.foundUsers}
@@ -285,6 +291,7 @@ class App extends Component {
                     likeUser={this.likeUser}
                     matchModalContent={this.state.matchModalContent}
                     showMatchModal={this.state.showMatchModal}
+                    showModal={this.showModal}
                   />
                 }
                 />
