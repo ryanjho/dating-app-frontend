@@ -97,8 +97,14 @@ class App extends Component {
       }
     });
 
-    // reset localStoreage
+    // Reset Local Storage
     localStorage.clear();
+
+    this.resetAppState();
+
+  }
+
+  resetAppState = () => {
     this.setState({
       isLogIn: false,
       currentUser: '',
@@ -136,6 +142,7 @@ class App extends Component {
       position: this.state.position
     })
   }
+
 
   // Calculate Distance
   distance(lat1, lon1, lat2, lon2, unit) {
@@ -279,7 +286,10 @@ class App extends Component {
               />
 
               <Route path="/profile" render={() => 
-                <Profile currentUser={this.state.currentUser}/>
+                <Profile 
+                  currentUser={this.state.currentUser}
+                  resetAppState={this.resetAppState}
+                />
               } 
               />
             </Switch>

@@ -1,20 +1,50 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
+import usersService from '../services/usersService';
+import { Link } from "react-router-dom";
 
 class Profile extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isEditing: false
+        }
+    }
+
+    toggleEdit = event => {
+        this.setState({
+            isEditing: !this.state.isEditing
+        })
+    }
+
+    // Delete User
+    deleteUser = async (event) => {
+        const user = this.props.currentUser;
+        await usersService.delete(user._id);
+
+        // Clear Local Storage
+        localStorage.clear();
+
+        // Reset App State
+        this.props.resetAppState();
+    }
+
+
     render() {
         const user = this.props.currentUser;
         return (
             <div className="container">
                 <h1 className="text-center">My Profile</h1>
                 <div className="user-actions">
-                    <Button variant="primary">Edit</Button>
-                    <Button variant="danger">Delete</Button>
+                    <Button variant="primary" onClick={this.toggleEdit}>Edit</Button>
+                    <Link to="/"><Button variant="danger" onClick={this.deleteUser}>Delete</Button></Link>
                 </div>
                 <div className="user-profile">
                     <img width={250} height={380} src={user.image} alt={user.userName} className="profile-image" />
                     <div>
                         <h4>{user.userName}</h4>
+                        {/* Email Address */}
+                        <p>Email: {user.email}</p>
                         {/* Name */}
                         <p><svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-emoji-laughing" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
