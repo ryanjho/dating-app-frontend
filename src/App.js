@@ -19,6 +19,14 @@ import Information from './components/information';
 
 import Profile from './components/Profile';
 
+import openSocket from 'socket.io-client';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000'
+const buildUrl = apiPath => {
+    return BACKEND_URL + apiPath;
+};
+
+const socket = openSocket(BACKEND_URL); 
 
 class App extends Component {
   constructor(props) {
@@ -225,7 +233,7 @@ class App extends Component {
     const currentUserId = JSON.parse(localStorage.getItem('currentUser'))
     console.log(`${currentUserId._id} likes ${likedUserId} `);
     await usersService.likeUser(currentUserId._id, likedUserId);
-    // await socket.emit('checkMatch', { currentUserId: currentUserId._id, likedUserId: likedUserId});
+    await socket.emit('checkMatch', { currentUserId: currentUserId._id, likedUserId: likedUserId});
   }
 
   // When page is loaded
@@ -233,6 +241,10 @@ class App extends Component {
     this.getAllCountries();
     this.checkAuthentication();
     this.getLocation();
+
+    // Retrieve data from socket.io server
+    socket.on('press', (data) => console.log(data));   
+    socket.on('matched', (data) => this.setState({matchModalContent: data, showMatchModal: true}));
   }
 
   render() {
@@ -271,6 +283,8 @@ class App extends Component {
                     foundUsers={this.state.foundUsers}
                     delete={this.delete}
                     likeUser={this.likeUser}
+                    matchModalContent={this.state.matchModalContent}
+                    showMatchModal={this.state.showMatchModal}
                   />
                 }
                 />

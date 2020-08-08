@@ -6,6 +6,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import ChatIcon from '@material-ui/icons/Chat';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import MatchModal from './MatchModal';
 
 class ListUser extends Component {
     skipUser = (event) => {
@@ -18,6 +19,7 @@ class ListUser extends Component {
                 {this.props.isLogIn ?
 
                     <div>
+                        <MatchModal matchModalContent={this.props.matchModalContent} showMatchModal={this.props.showMatchModal} />
                         <p className="text-center">{this.props.foundUsers} users found</p>
                         {this.props.users ?
                             <div className="carousel-wrapper">
