@@ -6,7 +6,6 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import ChatIcon from '@material-ui/icons/Chat';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import MatchModal from './MatchModal';
 
 class ListUser extends Component {
     skipUser = (event) => {

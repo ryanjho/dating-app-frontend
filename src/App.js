@@ -329,9 +329,9 @@ class App extends Component {
           <Information />
           <Footer />
           <MatchModal 
-                            matchModalContent={this.state.matchModalContent}
-                            showMatchModal={this.state.showMatchModal}
-                            showModal={this.showModal}
+            matchModalContent={this.state.matchModalContent}
+            showMatchModal={this.state.showMatchModal}
+            showModal={this.showModal}
           />
         </div>
       </Router>
