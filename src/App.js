@@ -7,6 +7,7 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Footer from './components/Footer';
 import Main from './components/Main';
+import MatchModal from './components/MatchModal';
 import NearByUsers from './components/NearByUsers';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -19,6 +20,14 @@ import Information from './components/information';
 
 import Profile from './components/Profile';
 
+import openSocket from 'socket.io-client';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000'
+const buildUrl = apiPath => {
+    return BACKEND_URL + apiPath;
+};
+
+const socket = openSocket(BACKEND_URL); 
 
 class App extends Component {
   constructor(props) {
@@ -35,7 +44,8 @@ class App extends Component {
         long: null
       },
       users: [],
-      nearByUsers: []
+      nearByUsers: [],
+      backgroundBlur: false
     }
   }
 
@@ -75,6 +85,10 @@ class App extends Component {
         currentUser: JSON.parse(currentUser)
       })
       this.fetchUsers();
+
+      // Crete new socket room after check authentication
+      console.log('creating new socket room from authentication');
+      socket.emit('join', {id: this.state.currentUser._id});
     }
   }
 
@@ -86,6 +100,10 @@ class App extends Component {
     })
     this.fetchUsers();
     this.getLocation();
+
+    // Crete new socket room
+    console.log('creating new socket room');
+    socket.emit('join', {id: currentUser._id});
   }
 
   // Logout
@@ -225,7 +243,12 @@ class App extends Component {
     const currentUserId = JSON.parse(localStorage.getItem('currentUser'))
     console.log(`${currentUserId._id} likes ${likedUserId} `);
     await usersService.likeUser(currentUserId._id, likedUserId);
-    // await socket.emit('checkMatch', { currentUserId: currentUserId._id, likedUserId: likedUserId});
+    await socket.emit('checkMatch', { currentUserId: currentUserId._id, likedUserId: likedUserId});
+  }
+
+  // show or close modal
+   showModal = (event) => {
+    this.setState({showMatchModal: !this.state.showMatchModal});
   }
 
   // When page is loaded
@@ -233,6 +256,9 @@ class App extends Component {
     this.getAllCountries();
     this.checkAuthentication();
     this.getLocation();
+
+    // Retrieve data from socket.io server
+    socket.on('matched', (data) => this.setState({matchModalContent: data, showMatchModal: true, backgroundBlur: true}));
   }
 
   render() {
@@ -240,7 +266,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <div className="header-body">
-          
+             
               <Header
                 isLogIn={this.state.isLogIn}
                 logout={this.logout}
@@ -265,7 +291,7 @@ class App extends Component {
                 }
                 />
                 <Route path='/users' render={() =>
-                  <Main
+                  <Main id={this.state.backgroundBlur ? 'blur' : ''}
                     isLogIn={this.state.isLogIn}
                     users={this.state.users}
                     foundUsers={this.state.foundUsers}
@@ -304,6 +330,11 @@ class App extends Component {
           </div>
           <Information />
           <Footer />
+          <MatchModal 
+            matchModalContent={this.state.matchModalContent}
+            showMatchModal={this.state.showMatchModal}
+            showModal={this.showModal}
+          />
         </div>
       </Router>
     )
