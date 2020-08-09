@@ -14,7 +14,6 @@ class ListUser extends Component {
         return (
             <div>
                 {this.props.isLogIn ?
-
                     <div>
                         <p className="text-center">{this.props.foundUsers} users found</p>
                         <div className="sub-nav">
@@ -48,7 +47,6 @@ class ListUser extends Component {
                                     {this.props.users.map((user, index) => {
                                         return (
                                             <div className="user-image" key={index}>
-                                                <h1>My Profile</h1>
                                                 <img width={250} height={380} src={user.image} alt={user.userName} className="image-user" />
                                                 <div>
                                                     <h4>{user.userName}</h4>
