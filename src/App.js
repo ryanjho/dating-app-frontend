@@ -293,7 +293,9 @@ class App extends Component {
               <Route path="/profile" render={() => 
                 <Profile 
                   currentUser={this.state.currentUser}
+                  isLogIn={this.state.isLogIn}
                   resetAppState={this.resetAppState}
+                  countries={this.state.countries}
                 />
               } 
               />
