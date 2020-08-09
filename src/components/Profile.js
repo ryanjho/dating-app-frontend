@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import usersService from '../services/usersService';
 import EditProfileForm from './EditProfileForm';
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Link, useParams } from "react-router-dom";
 
 class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEditing: false
+            isEditing: false,
+            otherUserDetails: {}
         }
     }
 
@@ -30,18 +31,37 @@ class Profile extends Component {
         this.props.resetAppState();
     }
 
+    fetchUser = async (id) => {
+        const otherUser = await usersService.getOne(id);
+        this.setState({
+          otherUserDetails: otherUser,
+        });
+    
+        return otherUser;
+    }
+
+    componentDidMount() {
+        this.fetchUser(this.props.id);
+    }
 
     render() {
-        const user = this.props.currentUser;
+        let user = {};
+        if (this.props.otherUser === true) {
+            user = this.state.otherUserDetails;
+        } else {
+            user = this.props.currentUser;
+        }
         return (
             <div className="container">
                 {this.props.isLogIn ?
                     <React.Fragment>
-                        <h1 className="text-center">My Profile</h1>
-                        <div className="user-actions">
-                            <Button variant="primary" onClick={this.toggleEdit}>Edit</Button>
-                            <Link to="/"><Button variant="danger" onClick={this.deleteUser}>Delete</Button></Link>
-                        </div>
+                        <h1 className="text-center">{this.props.otherUser ? `${user.userName}'s` : "My" } Profile</h1>
+                        {this.props.otherUser ? '' :
+                            <div className="user-actions">
+                                <Button variant="primary" onClick={this.toggleEdit}>Edit</Button>
+                                <Link to="/"><Button variant="danger" onClick={this.deleteUser}>Delete</Button></Link>
+                            </div>
+                        }
                         { !this.state.isEditing ? 
                            <div className="user-profile">
                            <img width={250} height={380} src={user.image} alt={user.userName} className="profile-image" />
