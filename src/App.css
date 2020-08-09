@@ -233,12 +233,14 @@ footer {
   min-width: 30vw;
   -webkit-animation:slide-in-top .5s ease-out both;
   animation:slide-in-top .5s ease-out both;
-  background: rgb(0, 0, 0); /* Fallback color */
+  background: rgba(39, 25, 10); 
   -webkit-box-shadow: 0px 10px 46px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 10px 46px 0px rgba(0,0,0,0.75);
   box-shadow: 0px 10px 46px 0px rgba(0,0,0,0.75);
   border: 1px solid rgba(255,255,255,0.2);
   border-radius: 20px;
+  opacity: 1;
+  color: white;
 }
 
 .match-modal>div {

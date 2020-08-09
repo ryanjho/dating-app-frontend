@@ -7,6 +7,7 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Footer from './components/Footer';
 import Main from './components/Main';
+import MatchModal from './components/MatchModal';
 import NearByUsers from './components/NearByUsers';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -265,7 +266,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <div className="header-body">
-          
+             
               <Header
                 isLogIn={this.state.isLogIn}
                 logout={this.logout}
@@ -296,9 +297,6 @@ class App extends Component {
                     foundUsers={this.state.foundUsers}
                     delete={this.delete}
                     likeUser={this.likeUser}
-                    matchModalContent={this.state.matchModalContent}
-                    showMatchModal={this.state.showMatchModal}
-                    showModal={this.showModal}
                   />
                 }
                 />
@@ -330,6 +328,11 @@ class App extends Component {
           </div>
           <Information />
           <Footer />
+          <MatchModal 
+                            matchModalContent={this.state.matchModalContent}
+                            showMatchModal={this.state.showMatchModal}
+                            showModal={this.showModal}
+          />
         </div>
       </Router>
     )

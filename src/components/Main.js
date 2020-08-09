@@ -19,11 +19,6 @@ class ListUser extends Component {
                 {this.props.isLogIn ?
 
                     <div>
-                        <MatchModal 
-                            matchModalContent={this.props.matchModalContent} 
-                            showMatchModal={this.props.showMatchModal}
-                            showModal={this.props.showModal} 
-                        />
                         <p className="text-center">{this.props.foundUsers} users found</p>
                         {this.props.users ?
                             <div className="carousel-wrapper">
