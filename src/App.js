@@ -314,14 +314,25 @@ class App extends Component {
                   />
                 }
                 />
-
-
+              <Route path="/profile/:id" render={(props) => 
+                <Profile 
+                  id={props.match.params.id}
+                  isLogIn={this.state.isLogIn}
+                  resetAppState={this.resetAppState}
+                  countries={this.state.countries}
+                  otherUser={true}
+                  currentUser={this.state.currentUser}
+                  
+                />
+              } 
+              />
               <Route path="/profile" render={() => 
                 <Profile 
                   currentUser={this.state.currentUser}
                   isLogIn={this.state.isLogIn}
                   resetAppState={this.resetAppState}
                   countries={this.state.countries}
+                  otherUser={false}
                 />
               } 
               />
