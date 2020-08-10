@@ -104,11 +104,12 @@ class Profile extends Component {
                                 <Link to="/"><Button variant="danger" onClick={this.deleteUser}>Delete</Button></Link>
                             </div>
                         }
+
                         {!this.state.isEditing ?
                             <div className="user-profile">
-                                <img width={250} height={380} src={user.image} alt={user.userName} className="profile-image" />
+                                <img width={380} height={400} src={user.image} alt={user.userName} className="profile-image" />
                                 <div>
-                                    <h4>{user.userName}</h4>
+                                    <h4 className="bolder">{user.userName}</h4>
                                     {/* Email Address */}
                                     <p>Email: {user.email}</p>
                                     {/* Name */}
@@ -138,7 +139,6 @@ class Profile extends Component {
                                 toggleLookingForGender={this.toggleLookingForGender}
                               />
                         }
-
                     </React.Fragment>
                     : <Redirect to="/" />
                 }
