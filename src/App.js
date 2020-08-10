@@ -15,6 +15,7 @@ import countries from 'countries-list';
 import sessionService from './services/sessionService';
 import usersService from './services/usersService';
 import UserNavigation from './components/UserNavigation';
+import User from './components/User';
 
 import Information from './components/information';
 
@@ -313,7 +314,7 @@ class App extends Component {
                   />
                 }
                 />
-                <Route path='/users' render={() =>
+                <Route path='/users' exact render={() =>
                   <Main id={this.state.backgroundBlur ? 'blur' : ''}
                     isLogIn={this.state.isLogIn}
                     users={this.state.users}
@@ -323,6 +324,14 @@ class App extends Component {
                   />
                 }
                 />
+                <Route path='/users/:id' exact render={(props) =>
+                  <User 
+                    isLogIn={this.state.isLogIn}
+                    id={props.match.params.id}
+                  />
+                }
+                />
+                
 
                 <Route path='/near' render={() =>
                   <NearByUsers
