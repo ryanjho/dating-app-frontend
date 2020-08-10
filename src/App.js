@@ -22,6 +22,8 @@ import Profile from './components/Profile';
 
 import openSocket from 'socket.io-client';
 
+import { ParallaxProvider } from 'react-scroll-parallax';
+
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000'
 const buildUrl = apiPath => {
     return BACKEND_URL + apiPath;
@@ -263,6 +265,7 @@ class App extends Component {
 
   render() {
     return (
+      <ParallaxProvider>
       <Router>
         <div className="App">
           <div className="header-body">
@@ -348,6 +351,7 @@ class App extends Component {
           />
         </div>
       </Router>
+      </ParallaxProvider>
     )
   }
 }

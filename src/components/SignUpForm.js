@@ -74,11 +74,11 @@ export class SignUpForm extends Component {
                                 <Form.Group as={Row}>
                                     <Form.Label column sm={2}>From</Form.Label>
                                     <Col sm={4}>
-                                        <Form.Control type="number" id="lookingForAgeFrom" value={lookingForAgeFrom} onChange={handleFormChange} min="18" required />
+                                        <Form.Control type="number" id="lookingForAgeFrom" value={lookingForAgeFrom} onChange={handleFormChange} min="18" className="age" required />
                                     </Col>
                                     <Form.Label column sm={2}>To</Form.Label>
                                     <Col sm={4}>
-                                        <Form.Control type="number" id="lookingForAgeTo" value={lookingForAgeTo} onChange={handleFormChange} min="18" required />
+                                        <Form.Control type="number" id="lookingForAgeTo" value={lookingForAgeTo} onChange={handleFormChange} min="18" className="age" required />
                                     </Col>
                                 </Form.Group>
                             </Col>
