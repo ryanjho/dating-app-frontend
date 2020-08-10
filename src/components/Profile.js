@@ -64,7 +64,7 @@ class Profile extends Component {
                         }
                         { !this.state.isEditing ? 
                            <div className="user-profile">
-                           <img width={250} height={380} src={user.image} alt={user.userName} className="profile-image" />
+                           <img width={400} height={400} src={user.image} alt={user.userName} className="profile-image" />
                            <div>
                                <h4>{user.userName}</h4>
                                {/* Email Address */}
