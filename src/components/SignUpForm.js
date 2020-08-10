@@ -19,11 +19,11 @@ export class SignUpForm extends Component {
                             <i class="fas fa-envelope prefix grey-text"></i>
                             <input type="email" placeholder="Enter email" id="email" value={email} onChange={handleFormChange} required className="form-control validate" />
                         </div>
-{err ? 
-    <Alert variant="danger">
-                            {err}
-                        </Alert> : ''}
-                        
+                        {err ?
+                            <Alert variant="danger">
+                                {err}
+                            </Alert> : ''}
+
                         <div class="md-form mb-4">
                             <i class="fas fa-lock prefix grey-text"></i>
                             <input type="password" placeholder="Password" id="password" value={password} onChange={handleFormChange} required className="form-control validate" />

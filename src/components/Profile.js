@@ -58,7 +58,7 @@ class Profile extends Component {
                         <h1 className="text-center">{this.props.otherUser ? `${user.userName}'s` : "My" } Profile</h1>
                         {this.props.otherUser ? '' :
                             <div className="user-actions">
-                                <Button variant="primary" onClick={this.toggleEdit}>Edit</Button>
+                                <Button className="edit-profile-button" variant="primary" onClick={this.toggleEdit}>Edit</Button>
                                 <Link to="/"><Button variant="danger" onClick={this.deleteUser}>Delete</Button></Link>
                             </div>
                         }

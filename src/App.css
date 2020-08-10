@@ -170,10 +170,10 @@ button {
 
 .user-actions {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: flow wrap;
+  justify-content: center;
 }
 .user-actions Button {
-  width: 80px;
   margin: 10px;
 }
 
