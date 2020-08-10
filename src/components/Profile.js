@@ -3,6 +3,8 @@ import { Button } from 'react-bootstrap';
 import usersService from '../services/usersService';
 import EditProfileForm from './EditProfileForm';
 import { Redirect, Link, useParams } from "react-router-dom";
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 class Profile extends Component {
     constructor(props) {
@@ -35,9 +37,9 @@ class Profile extends Component {
             lookingForAgeTo: currentUser.lookingForAgeTo,
             err: null
         })
-        
-        currentUser.gender === 'male' ? this.setState({male: true}) : this.setState({female: true});
-        currentUser.lookingForGender === 'male' ? this.setState({lookingForMale: true}) : this.setState({lookingForFemale: true});
+
+        currentUser.gender === 'male' ? this.setState({ male: true }) : this.setState({ female: true });
+        currentUser.lookingForGender === 'male' ? this.setState({ lookingForMale: true }) : this.setState({ lookingForFemale: true });
     }
 
     // Toggle User Gender During Edit
@@ -65,13 +67,13 @@ class Profile extends Component {
     handleFormSubmit = async event => {
         event.preventDefault();
         const updatedInformation = this.updateUser();
-        
+
         // Update User Information In Database
         const data = await usersService.update(this.props.currentUser._id, updatedInformation);
         // const updatedUser = data.updatedDocument;
 
-        if(data.err) this.setState({ err: data.err});
-            
+        if (data.err) this.setState({ err: data.err });
+
         this.setState({
             isEditing: false,
             email: '',
@@ -154,16 +156,9 @@ class Profile extends Component {
                 {this.props.isLogIn ?
                     <React.Fragment>
                         <h1 className="text-center">{this.props.otherUser ? `${user.userName}'s` : "My"} Profile</h1>
-                        {this.props.otherUser ? '' :
-                            <div className="user-actions">
-                                <Button className="edit-profile-button" variant="primary" onClick={this.toggleEdit}>Edit</Button>
-                                <Link to="/"><Button variant="danger" onClick={this.deleteUser}>Delete</Button></Link>
-                            </div>
-                        }
-
                         {!this.state.isEditing ?
                             <div className="user-profile">
-                                <img width={380} height={400} src={user.image} alt={user.userName} className="profile-image" />
+                                <img width={450} height={420} src={user.image} alt={user.userName} className="profile-image" />
                                 <div>
                                     <h4 className="bolder">{user.userName}</h4>
                                     {/* Email Address */}
@@ -185,16 +180,22 @@ class Profile extends Component {
                                     <p>Looking For: {user.lookingForGender}</p>
                                     <p>From: {user.lookingForAgeFrom} years old  To: {user.lookingForAgeTo} years old</p>
                                 </div>
+                                {this.props.otherUser ? '' :
+                                    <div className="user-actions">
+                                        <Button className="edit-profile-button" variant="primary" onClick={this.toggleEdit}><EditIcon /></Button>
+                                        <Link to="/"><Button variant="danger" onClick={this.deleteUser}><DeleteForeverIcon /></Button></Link>
+                                    </div>
+                                }
                             </div>
-                            : <EditProfileForm 
-                                editingUser = {this.state}
+                            : <EditProfileForm
+                                editingUser={this.state}
                                 countries={this.props.countries}
                                 toggleEdit={this.toggleEdit}
                                 toggleGender={this.toggleGender}
                                 toggleLookingForGender={this.toggleLookingForGender}
                                 handleFormChange={this.handleFormChange}
                                 handleFormSubmit={this.handleFormSubmit}
-                              />
+                            />
                         }
                     </React.Fragment>
                     : <Redirect to="/" />

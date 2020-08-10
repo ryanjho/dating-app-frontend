@@ -31,7 +31,7 @@ class User extends Component {
                             <React.Fragment>
                                 <h1 className="text-center">{this.state.user.userName}</h1>
                                 <div className="user-profile">
-                                    <img width={380} height={400} src={this.state.user.image} alt={this.state.user.userName} className="profile-image" />
+                                    <img width={450} height={430} src={this.state.user.image} alt={this.state.user.userName} className="profile-image" />
                                     <div>
                                         <p><svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-emoji-laughing" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fillRule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
