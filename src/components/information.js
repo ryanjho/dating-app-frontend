@@ -69,8 +69,8 @@ class Information extends Component {
                     blur={{ min: -10, max: 10 }}
                     bgImage='https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/A_couple_looking_at_the_sea.jpg/1200px-A_couple_looking_at_the_sea.jpg'
                     bgImageAlt="the cat"
-                    strength={800}
-                >
+                    strength={1500}
+                >   
                     <div className="slogan">
                         <h2>FIND YOUR LOVE</h2>
                     </div>

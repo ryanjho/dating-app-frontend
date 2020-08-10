@@ -233,7 +233,7 @@ button {
   color: white;
   text-align: center;
   padding: 10%;
-
+  background: rgba(163, 121, 121, 0.5); 
 }
 .slogan1 {
   background-color: brown;
