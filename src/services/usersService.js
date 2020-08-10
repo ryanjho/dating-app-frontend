@@ -47,5 +47,58 @@ export default {
             { _id: likedUserId}
         );
         return response.data;
-    }
+    },
+    async createChatRoom (data) {
+        try {
+            const response = await apiUtil.post(buildUrl(`/chat_room`), data);
+            return response.data;
+        } catch(err) {
+            console.log(err);
+        }
+    },
+    async getAllMessages () {
+        try {
+            const response = await apiUtil.get(buildUrl(`/chat_room`));
+            const promises = response.data.map(async element => {
+                // console.log(element);
+                const otherUserDetail = await apiUtil.get(buildUrl(`/${element.users[1]}`))
+                return otherUserDetail.data;
+            })
+            const otherUserDetails = await Promise.all(promises);
+
+            const formattedDetails = this.joinDetails(response.data, otherUserDetails);
+
+            return formattedDetails;
+        } catch(err) {
+            console.log(err);
+        }
+    },
+    async joinDetails (getAllArray, otherUserDetails) {
+        let response = getAllArray;
+        for (let i = 0; i < response.length; i++){
+            for (let j = 0; j < 2; j++) {
+                if (response[i].users[1] === otherUserDetails[j]._id) {
+                    response[i].userName = otherUserDetails[j].userName;
+                    response[i].image = otherUserDetails[j].image;
+                }
+            }
+        };
+        return response;
+    },
+    async getCurrentChatRoom (chatRoomID) {
+        try {
+            const response = await apiUtil.get(buildUrl(`/chat_room/${chatRoomID}`));
+            return response.data;
+        } catch(err) {
+            console.log(err);
+        }
+    },
+    async sendMessage (chatRoomID, payload) {
+        try {
+            const response = await apiUtil.update(buildUrl(`/chat_room/${chatRoomID}`), payload);
+            return response.data;
+        } catch(err) {
+            console.log(err);
+        }
+    },
 }

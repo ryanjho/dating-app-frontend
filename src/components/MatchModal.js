@@ -4,8 +4,8 @@ import Button from '@material-ui/core/Button';
 
 export class MatchModal extends Component {
     onClose = (event) => {
-        console.log('press');
         this.props.showModal();
+        this.props.createNewChatRoomFromModal();
     }
     render() {
         return (

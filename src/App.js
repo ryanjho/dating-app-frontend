@@ -23,6 +23,7 @@ import Profile from './components/Profile';
 import openSocket from 'socket.io-client';
 
 import { ParallaxProvider } from 'react-scroll-parallax';
+import Chat from './components/Chat';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000'
 const buildUrl = apiPath => {
@@ -264,6 +265,31 @@ class App extends Component {
     this.setState({showMatchModal: !this.state.showMatchModal});
   }
 
+  createNewChatRoomFromModal = async (event) => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const otherUser = this.state.matchModalContent.otherUserId;
+
+    const payload = 
+    {
+      users: [currentUser._id, otherUser],
+      messages: [
+      ]
+    }
+    console.log('this is new chat payload to backend')
+    console.log(payload);
+    
+    const chatRoom = await usersService.createChatRoom(payload);
+    // const filterdUsers = users.filter(user => user.gender === this.state.currentUser.lookingForGender
+    //   && user.age >= this.state.currentUser.lookingForAgeFrom
+    //   && user.age <= this.state.currentUser.lookingForAgeTo)
+    // this.setState({
+    //   users: filterdUsers,
+    //   foundUsers: filterdUsers.length
+    // });
+
+    // return filterdUsers;
+  }
+
   // When page is loaded
   componentDidMount() {
     this.getAllCountries();
@@ -350,6 +376,12 @@ class App extends Component {
                 />
               } 
               />
+              <Route path="/messages" render={() =>
+                <Chat
+                  currentUser={this.state.currentUser}
+                />
+              }
+              />
             </Switch>
 
           </div>
@@ -359,6 +391,7 @@ class App extends Component {
             matchModalContent={this.state.matchModalContent}
             showMatchModal={this.state.showMatchModal}
             showModal={this.showModal}
+            createNewChatRoomFromModal={this.createNewChatRoomFromModal}
           />
         </div>
       </Router>
