@@ -83,10 +83,10 @@ class Information extends Component {
                     bgImageAlt="the dog"
                     strength={200}
                 >
-                    {/* <div className="the-end">
-                        <h2>Enjoy your time with this app</h2>
-                    </div> */}
-                    <div style={{ height: '200px' }} />
+                    <div className="slogan">
+                        <h2>Find your someone</h2>
+                    </div>
+                    {/* <div style={{ height: '200px' }} /> */}
                 </Parallax>
                 <Parallax strength={300}>
                     <div className="the-end">
