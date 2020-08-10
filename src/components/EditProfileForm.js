@@ -8,25 +8,19 @@ export class EditProfileForm extends Component {
             
         }
     }
+
     render() {
+        const { userName, age, location, female, male, lookingForFemale, lookingForMale, lookingForAgeFrom, lookingForAgeTo } = this.props.editingUser;
+        const handleFormChange = this.props.handleFormChange;
+        const toggleEdit = this.props.toggleEdit;
+        const toggleGender = this.props.toggleGender;
+        const toggleLookingForGender=this.props.toggleLookingForGender;
+        const countries = this.props.countries;
+
         return (
             <React.Fragment>
-                {/* <Form onSubmit={handleFormSubmit} className="signup-form">
-                    <h2 className="text-center h2">CREATE NEW ACCOUNT</h2>
-
-                    <Form.Group as={Row}>
-                        <Form.Label column sm={4}>Email</Form.Label>
-                        <Col sm={8}>
-                            <Form.Control type="email" placeholder="Enter email" id="email" value={email} onChange={handleFormChange} required />
-                        </Col>
-                    </Form.Group>
-
-                    <Form.Group as={Row}>
-                        <Form.Label column sm={4}>Password</Form.Label>
-                        <Col sm={8}>
-                            <Form.Control type="password" placeholder="Password" id="password" value={password} onChange={handleFormChange} required />
-                        </Col>
-                    </Form.Group>
+                <Form className="edit-form">
+                    <h2 className="text-center h2">EDIT PROFILE INFORMATION</h2>
 
                     <Form.Group as={Row}>
                         <Form.Label column sm={4}>UserName</Form.Label>
@@ -34,7 +28,7 @@ export class EditProfileForm extends Component {
                             <Form.Control type="string" placeholder="Enter user name" id="userName" value={userName} onChange={handleFormChange} required />
                         </Col>
                     </Form.Group>
-
+                    
                     <Form.Group as={Row}>
                         <Form.Label column sm={4}>Age</Form.Label>
                         <Col sm={8}>
@@ -65,20 +59,11 @@ export class EditProfileForm extends Component {
                         </Col>
                     </Form.Group>
 
-                    <Form.Group as={Row} encType="multipart/form-data">
-                        <Form.Label column sm={4}>Avatar</Form.Label>
-                        <Col sm={8}>
-                            <Form.Control type="file" onChange={handleFormChange} id="image" required />
-                        </Col>
-                    </Form.Group>
-
                     <Form.Group as={Row}>
                         <Form.Label column sm={4}>What are you looking for</Form.Label>
                         <Col sm={8}>
                             <Form.Check inline label="Female" checked={lookingForFemale} onChange={toggleLookingForGender} />
-
                             <Form.Check inline label="Male" checked={lookingForMale} onChange={toggleLookingForGender} />
-
                             <Form.Group as={Row}>
                                 <Form.Label column sm={2}>From</Form.Label>
                                 <Col sm={4}>
@@ -92,11 +77,13 @@ export class EditProfileForm extends Component {
                         </Col>
                     </Form.Group>
 
+                    
                     <Form.Group className="text-center">
-                        <Button variant="primary" type="submit"> Submit</Button>
+                        <Button variant="secondary" onClick={toggleEdit}>Cancel</Button>
+                        <Button variant="primary" type="submit">Save</Button>
                     </Form.Group>
 
-                </Form> */}
+                </Form>
             </React.Fragment>
         )
     }
