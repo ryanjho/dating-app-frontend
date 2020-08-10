@@ -124,8 +124,17 @@ class App extends Component {
     // Reset Local Storage
     localStorage.clear();
 
+    // Reset App State
     this.resetAppState();
 
+  }
+
+  // Reset Updated Current User
+  resetUpdatedCurrentUser = () => {
+    const currentUser = localStorage.getItem('currentUser');
+    this.setState({
+      currentUser: JSON.parse(currentUser)
+    })
   }
 
   resetAppState = () => {
@@ -328,7 +337,7 @@ class App extends Component {
                   />
                 }
                 />
-              <Route path="/profile/:id" render={(props) => 
+              {/* <Route path="/profile/:id" render={(props) => 
                 <Profile 
                   id={props.match.params.id}
                   isLogIn={this.state.isLogIn}
@@ -337,16 +346,16 @@ class App extends Component {
                   otherUser={true}
                   currentUser={this.state.currentUser}
                   
-                />
+                /> */}
               } 
               />
               <Route path="/profile" render={() => 
                 <Profile 
                   currentUser={this.state.currentUser}
                   isLogIn={this.state.isLogIn}
-                  resetAppState={this.resetAppState}
                   countries={this.state.countries}
                   otherUser={false}
+                  resetUpdatedCurrentUser={this.resetUpdatedCurrentUser}
                 />
               } 
               />
