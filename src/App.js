@@ -288,15 +288,6 @@ class App extends Component {
     console.log(payload);
     
     const chatRoom = await usersService.createChatRoom(payload);
-    // const filterdUsers = users.filter(user => user.gender === this.state.currentUser.lookingForGender
-    //   && user.age >= this.state.currentUser.lookingForAgeFrom
-    //   && user.age <= this.state.currentUser.lookingForAgeTo)
-    // this.setState({
-    //   users: filterdUsers,
-    //   foundUsers: filterdUsers.length
-    // });
-
-    // return filterdUsers;
   }
 
   // When page is loaded
