@@ -184,7 +184,7 @@ button {
   justify-content: space-around;
   text-align: center;
   color: white;
-  margin-top: 3%;
+
   font-weight: lighter;
   font-size: 17px;
   border-top: 2px solid rgb(117, 99, 19);
@@ -233,17 +233,20 @@ button {
 
 .slogan {
   color: black;
-  min-height: 300px;
   text-align: center;
-  padding: 5%;
+  padding: 10%;
 
 }
-
+.slogan1 {
+  background-color: brown;
+  color: white;
+  padding: 8%;
+  text-align: center;
+}
 .the-end {
   background-color: rgba(231, 228, 228, 0.5);
-  min-height: 300px;
   text-align: center;
-  padding: 5%;
+  padding: 10%;
 }
 .match-modal {
   text-align: center;

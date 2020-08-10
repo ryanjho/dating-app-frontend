@@ -20,7 +20,8 @@ export class SignUp extends Component {
             lookingForAgeFrom: 18,
             lookingForAgeTo: 30,
             isSignup: false,
-            newUser: {}
+            newUser: {},
+            err: null
         }
     }
 
@@ -43,8 +44,19 @@ export class SignUp extends Component {
         event.preventDefault();
         // this.getLocation();
         const newUser = await this.createNewUser();
+        
          // Add New User To Database
-         await usersService.create(newUser);
+        const data = await usersService.create(newUser);
+        console.log(data);
+
+        if(data.err) {this.setState({
+            err: data.err,
+            isSignUp: false
+        })} else {
+            this.setState({
+                isSignUp: true
+            })
+        }
          this.setState({
             email: '',
             userName: '',
@@ -57,9 +69,10 @@ export class SignUp extends Component {
             lookingForFemale: true,
             lookingForMale: false,
             lookingForAgeFrom: 18,
-            lookingForAgeTo: 30,
-            isSignUp: true
+            lookingForAgeTo: 30
         });
+
+        
     }
 
     // Create New User

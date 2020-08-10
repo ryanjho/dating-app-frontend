@@ -66,36 +66,20 @@ class Information extends Component {
                     </div>
                 </div>
                 <Parallax
-
-                    bgImage='https://www.familiesforlife.sg/discover-an-article/PublishingImages/HappyCouple_WalkingonBeach.jpg'
+                    blur={{ min: -15, max: 15 }}
+                    bgImage='https://www.familiesforlife.sg/discover-an-article/PublishingImages/ScienceOfHappyMarriage.jpg'
                     bgImageAlt="the cat"
                     strength={200}
                 >
                     <div className="slogan">
                         <h2>FIND YOUR LOVE</h2>
                     </div>
-                    
-                    {/* <div style={{ height: '200px' }} /> */}
-                </Parallax>
-                <Parallax
-                    blur={{ min: -15, max: 15 }}
-                    bgImage='https://www.photojaanic.sg/blog/wp-content/uploads/sites/3/2017/02/romance-1822585_1920_Small-1080x721.jpg'
-                    bgImageAlt="the dog"
-                    strength={200}
-                >
-                    <div className="slogan">
-                        <h2>Find your someone</h2>
-                    </div>
-                    {/* <div style={{ height: '200px' }} /> */}
-                </Parallax>
-                <Parallax strength={300}>
-                    <div className="the-end">
+                    <div className="slogan1">
                         <h2>Enjoy your time with this app</h2>
                     </div>
-                    <Background className="custom-bg">
-                        <img src="https://www.family.org.sg/images/FOTFS_SiteTemplate/Blog/Marriage/blog_couple_retreat_an_essential.jpg" alt="fill murray" />
-                    </Background>
+                    
                 </Parallax>
+               
 
 
 
