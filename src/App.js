@@ -244,8 +244,19 @@ class App extends Component {
     const likedUserId = event.currentTarget.getAttribute('a-key');
     const currentUserId = JSON.parse(localStorage.getItem('currentUser'))
     console.log(`${currentUserId._id} likes ${likedUserId} `);
+
     await usersService.likeUser(currentUserId._id, likedUserId);
     await socket.emit('checkMatch', { currentUserId: currentUserId._id, likedUserId: likedUserId});
+
+    // Remove liked user from UI
+    const users = this.state.users;
+      const index = users.findIndex(item => item._id === likedUserId);
+      this.setState({
+        users: [
+          ...users.slice(0, index),
+          ...users.slice(index + 1)
+        ]
+      });
   }
 
   // show or close modal
