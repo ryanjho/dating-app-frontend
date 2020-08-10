@@ -61,6 +61,62 @@ class Profile extends Component {
         this.setState({ [event.target.id]: event.target.value });
     }
 
+    // Handle Form Submit
+    handleFormSubmit = async event => {
+        event.preventDefault();
+        const updatedInformation = this.updateUser();
+        
+        // Update User Information In Database
+        const data = await usersService.update(this.props.currentUser._id, updatedInformation);
+        // const updatedUser = data.updatedDocument;
+
+        if(data.err) this.setState({ err: data.err});
+            
+        this.setState({
+            isEditing: false,
+            email: '',
+            userName: '',
+            age: 18,
+            location: '',
+            female: false,
+            male: false,
+            lookingForFemale: false,
+            lookingForMale: false,
+            lookingForAgeFrom: 18,
+            lookingForAgeTo: 30
+        });
+
+        const currentUserId = JSON.parse(localStorage.getItem('currentUser'))._id;
+        // Clear Local Storage
+        localStorage.clear();
+        const updatedCurrentUser = await usersService.getOne(currentUserId);
+
+        // Reset Local Storage
+        localStorage.setItem('currentUser', JSON.stringify(updatedCurrentUser));
+
+        // Reset Current User In App State
+        this.props.resetUpdatedCurrentUser();
+    }
+
+    // Return Updated User Information
+    updateUser = () => {
+        // set information of new account
+        const updatedInformation = {
+            userName: this.state.userName,
+            age: parseInt(this.state.age),
+            location: this.state.location,
+            lookingForAgeFrom: parseInt(this.state.lookingForAgeFrom),
+            lookingForAgeTo: parseInt(this.state.lookingForAgeTo)
+        };
+
+        // Update Gender
+        this.state.female ? updatedInformation.gender = "Female" : updatedInformation.gender = "Male";
+        this.state.lookingForFemale ? updatedInformation.lookingForGender = "Female" : updatedInformation.lookingForGender = "Male";
+
+        return updatedInformation;
+    }
+
+
     // Delete User
     deleteUser = async (event) => {
         const user = this.props.currentUser;
@@ -132,10 +188,11 @@ class Profile extends Component {
                             : <EditProfileForm 
                                 editingUser = {this.state}
                                 countries={this.props.countries}
-                                handleFormChange={this.handleFormChange}
                                 toggleEdit={this.toggleEdit}
                                 toggleGender={this.toggleGender}
                                 toggleLookingForGender={this.toggleLookingForGender}
+                                handleFormChange={this.handleFormChange}
+                                handleFormSubmit={this.handleFormSubmit}
                               />
                         }
 

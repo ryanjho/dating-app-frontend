@@ -11,17 +11,17 @@ export class EditProfileForm extends Component {
 
     render() {
         const { userName, age, location, female, male, lookingForFemale, lookingForMale, lookingForAgeFrom, lookingForAgeTo } = this.props.editingUser;
-        const handleFormChange = this.props.handleFormChange;
+        const countries = this.props.countries;
         const toggleEdit = this.props.toggleEdit;
         const toggleGender = this.props.toggleGender;
         const toggleLookingForGender=this.props.toggleLookingForGender;
-        const countries = this.props.countries;
+        const handleFormChange = this.props.handleFormChange;
+        const handleFormSubmit = this.props.handleFormSubmit;
 
         return (
             <React.Fragment>
-                <Form className="edit-form">
+                <Form onSubmit={handleFormSubmit} className="edit-form">
                     <h2 className="text-center h2">EDIT PROFILE INFORMATION</h2>
-
                     <Form.Group as={Row}>
                         <Form.Label column sm={4}>UserName</Form.Label>
                         <Col sm={8}>
