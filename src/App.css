@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&family=Nunito:wght@200;400;700;800&family=Roboto+Slab:wght@400;600;800&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@100&family=Rajdhani:wght@500&display=swap');
 body {
   /* background-color: #fffdfb; */
   font-family: 'Lora', serif;
@@ -26,6 +26,7 @@ h1 {
 
 .app-name {
   font-size: 40px;
+  font-family: 'Rajdhani', sans-serif;
 }
 /* Header Component */
 .header {
@@ -162,6 +163,7 @@ button {
   flex-flow: column wrap;
   justify-content: center;
   text-align: center;
+  color: white;
 }
 
 .user-actions, .profile-image {
@@ -180,15 +182,11 @@ button {
 /* Footer */
 .footer {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   justify-content: space-around;
-  text-align: center;
   color: white;
-
-  font-weight: lighter;
-  font-size: 17px;
+  font-family: 'Exo 2', sans-serif;
   border-top: 2px solid rgb(117, 99, 19);
-  padding: 1%;
   background: rgb(99, 77, 8);
 }
 
@@ -218,7 +216,7 @@ button {
   justify-content: space-around;
 }
 .bolder {
-  margin-top: 5%;
+  margin-top: 3%;
   font-family: 'Nunito', sans-serif;
   font-weight: 800;
 }
@@ -232,21 +230,16 @@ button {
 }
 
 .slogan {
-  color: black;
+  color: white;
   text-align: center;
   padding: 10%;
-
+  background: rgba(163, 121, 121, 0.5); 
 }
 .slogan1 {
   background-color: brown;
   color: white;
   padding: 8%;
   text-align: center;
-}
-.the-end {
-  background-color: rgba(231, 228, 228, 0.5);
-  text-align: center;
-  padding: 10%;
 }
 .match-modal {
   text-align: center;

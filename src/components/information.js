@@ -66,11 +66,11 @@ class Information extends Component {
                     </div>
                 </div>
                 <Parallax
-                    blur={{ min: -15, max: 15 }}
-                    bgImage='https://www.familiesforlife.sg/discover-an-article/PublishingImages/ScienceOfHappyMarriage.jpg'
+                    blur={{ min: -10, max: 10 }}
+                    bgImage='https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/A_couple_looking_at_the_sea.jpg/1200px-A_couple_looking_at_the_sea.jpg'
                     bgImageAlt="the cat"
-                    strength={200}
-                >
+                    strength={1500}
+                >   
                     <div className="slogan">
                         <h2>FIND YOUR LOVE</h2>
                     </div>
