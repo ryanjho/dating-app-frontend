@@ -163,6 +163,7 @@ button {
   flex-flow: column wrap;
   justify-content: center;
   text-align: center;
+  color: white;
 }
 
 .user-actions, .profile-image {
@@ -215,7 +216,7 @@ button {
   justify-content: space-around;
 }
 .bolder {
-  margin-top: 5%;
+  margin-top: 3%;
   font-family: 'Nunito', sans-serif;
   font-weight: 800;
 }
@@ -239,11 +240,6 @@ button {
   color: white;
   padding: 8%;
   text-align: center;
-}
-.the-end {
-  background-color: rgba(231, 228, 228, 0.5);
-  text-align: center;
-  padding: 10%;
 }
 .match-modal {
   text-align: center;
