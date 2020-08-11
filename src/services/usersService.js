@@ -53,7 +53,7 @@ export default {
         return response.data;
     },
     async resetUserPassword (formData) {
-        const response = await apiUtil.update(buildUrl('/forget-password'), formData);
+        const response = await apiUtil.post(buildUrl('/forget-password'), formData);
         return response.data;
     }
 }

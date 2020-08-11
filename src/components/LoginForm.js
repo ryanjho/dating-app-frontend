@@ -8,6 +8,7 @@ class LoginForm extends Component {
         const currentEmail = this.props.currentEmail;
         const currentPassword = this.props.currentPassword;
         const error = this.props.error;
+        const resetSuccess = this.props.resetSuccess;
         const handleFormChange = this.props.handleFormChange;
         const handleFormSubmit = this.props.handleFormSubmit;
         const toggleForgetPassword = this.props.toggleForgetPassword;
@@ -74,6 +75,11 @@ class LoginForm extends Component {
                         {error ?
                         <Alert variant='danger'>
                             {error}
+                        </Alert> : ''}
+
+                        {resetSuccess ? 
+                        <Alert variant='success'>
+                            {resetSuccess}
                         </Alert> : ''}
 
                     </Form>

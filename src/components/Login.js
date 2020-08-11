@@ -11,6 +11,7 @@ class Login extends Component {
             currentEmail: '',
             currentPassword: '',
             error: '',
+            resetSuccess: '',
             isForgotPassword: false
         }
     }
@@ -58,13 +59,13 @@ class Login extends Component {
 
     forgetPasswordSubmit = async (event) => {
         event.preventDefault();
-        console.log('Forget Password Submit Clicked');
-        const user = await usersService.resetUserPassword({ email: this.state.currentEmail });
-        if (!user.err) {
-            console.log('Put Request Successful', user)
+        this.setState({ error: '', success: ''});
+        const response = await usersService.resetUserPassword({ email: this.state.currentEmail });
+        if (!response.err) {
+            this.setState( {resetSuccess: response.message });
         } else {
             this.setState({
-                error: user.err
+                error: response.err
             })
         }
     }
@@ -91,6 +92,7 @@ class Login extends Component {
                         isForgotPassword={this.state.isForgotPassword}
                         forgetPasswordSubmit={this.forgetPasswordSubmit}
                         responseFacebook={this.responseFacebook}
+                        resetSuccess={this.state.resetSuccess}
                     />
                     : <Redirect to="/users" />
                 }
