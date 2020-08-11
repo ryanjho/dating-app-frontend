@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import usersService from '../services/usersService';
 import EditProfileForm from './EditProfileForm';
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Link, useParams } from "react-router-dom";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { Form, Col, Row } from 'react-bootstrap';

@@ -11,6 +11,7 @@ import MatchModal from './components/MatchModal';
 import NearByUsers from './components/NearByUsers';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import countries from 'countries-list';
 import sessionService from './services/sessionService';
 import usersService from './services/usersService';
@@ -328,7 +329,7 @@ class App extends Component {
                   />
                 }
                 />
-                 <Route path='/users/:id' exact render={(props) =>
+                 <Route  path='/users/:id'  render={(props) =>
                   <User 
                     isLogIn={this.state.isLogIn}
                     id={props.match.params.id}
