@@ -24,6 +24,7 @@ import Profile from './components/Profile';
 import openSocket from 'socket.io-client';
 
 import { ParallaxProvider } from 'react-scroll-parallax';
+import Chat from './components/Chat';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000'
 const buildUrl = apiPath => {
@@ -275,6 +276,27 @@ class App extends Component {
     this.setState({showMatchModal: !this.state.showMatchModal});
   }
 
+  createNewChatRoomFromModal = async (event) => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const otherUser = this.state.matchModalContent.otherUserId;
+    const isChatExist = await usersService.isChatExist(this.state.currentUser._id, otherUser);
+    console.log(isChatExist);
+    if (isChatExist === true) {
+      console.log('chat exists! we dont create new room');
+      return;
+    }
+    const payload = 
+    {
+      users: [currentUser._id, otherUser],
+      messages: [
+      ]
+    }
+    console.log('this is new chat payload to backend')
+    console.log(payload);
+    
+    const chatRoom = await usersService.createChatRoom(payload);
+  }
+
   // When page is loaded
   componentDidMount() {
     this.getAllCountries();
@@ -365,8 +387,8 @@ class App extends Component {
                   currentUser={this.state.currentUser}
                   
                 /> */}
-              } 
-              />
+              {/* } 
+              /> */}
               <Route path="/profile" render={() => 
                 <Profile 
                   currentUser={this.state.currentUser}
@@ -378,6 +400,12 @@ class App extends Component {
                 />
               } 
               />
+              <Route path="/messages" render={() =>
+                <Chat
+                  currentUser={this.state.currentUser}
+                />
+              }
+              />
             </Switch>
 
           </div>
@@ -387,6 +415,7 @@ class App extends Component {
             matchModalContent={this.state.matchModalContent}
             showMatchModal={this.state.showMatchModal}
             showModal={this.showModal}
+            createNewChatRoomFromModal={this.createNewChatRoomFromModal}
           />
         </div>
       </Router>
