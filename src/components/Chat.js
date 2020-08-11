@@ -65,16 +65,16 @@ export class Chat extends Component {
             messageInput: ''
         })
     }
-    scrollToBottom = () => {
-        if(Object.keys(this.state.selectedUser).length > 0) {
-            this.messageRef.scrollTop = this.messageRef.scrollHeight;
-        }
-      }
+    // scrollToBottom = () => {
+    //     if(Object.keys(this.state.selectedUser).length > 0) {
+    //         this.messageRef.scrollTop = this.messageRef.scrollHeight;
+    //     }
+    //   }
     componentDidMount() {
         setInterval(() => this.getConversations(), 2000);
-        setInterval(() => this.scrollToBottom(), 10000);
     }
     componentDidUpdate() {
+        // setInterval(() => this.scrollToBottom(), 10000);
         // this.scrollToBottom();
     }
 
