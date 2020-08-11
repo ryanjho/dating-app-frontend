@@ -68,7 +68,8 @@ class App extends Component {
     const users = await usersService.getAll();
     const filterdUsers = users.filter(user => user.gender === this.state.currentUser.lookingForGender
       && user.age >= this.state.currentUser.lookingForAgeFrom
-      && user.age <= this.state.currentUser.lookingForAgeTo)
+      && user.age <= this.state.currentUser.lookingForAgeTo);
+    filterdUsers.sort(user => .5 - Math.random())
     this.setState({
       users: filterdUsers,
       foundUsers: filterdUsers.length
