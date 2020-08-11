@@ -54,9 +54,9 @@ class ListUser extends Component {
                                                         </Button>
 
                                                         {/* message */}
-                                                        <Button variant="warning">
+                                                        {/* <Button variant="warning">
                                                             <ChatIcon />
-                                                        </Button>
+                                                        </Button> */}
 
                                                         {/* Like user */}
                                                         <Button a-key={user._id} onClick={this.props.likeUser} variant="success">
