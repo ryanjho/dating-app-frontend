@@ -51,5 +51,9 @@ export default {
             { _id: likedUserId}
         );
         return response.data;
+    },
+    async resetUserPassword (formData) {
+        const response = await apiUtil.update(buildUrl('/forget-password'), formData);
+        return response.data;
     }
 }

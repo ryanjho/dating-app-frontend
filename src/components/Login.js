@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import sessionService from '../services/sessionService';
 import LoginForm from './LoginForm';
+import usersService from '../services/usersService';
 
 class Login extends Component {
     constructor(props) {
@@ -49,16 +50,23 @@ class Login extends Component {
             });
         }
     }
-    forgetPassword = () => {
+    toggleForgetPassword = () => {
         this.setState({
-            isForgotPassword: true
+            isForgotPassword: !this.state.isForgotPassword
         })
     }
 
-    sendEmail = () => {
-        this.setState({
-            isForgotPassword: false
-        })
+    forgetPasswordSubmit = async (event) => {
+        event.preventDefault();
+        console.log('Forget Password Submit Clicked');
+        const user = await usersService.resetUserPassword({ email: this.state.currentEmail });
+        if (!user.err) {
+            console.log('Put Request Successful', user)
+        } else {
+            this.setState({
+                error: user.err
+            })
+        }
     }
 
     responseFacebook = async (response) => {
@@ -79,9 +87,9 @@ class Login extends Component {
                         error={this.state.error}
                         handleFormChange={this.handleFormChange}
                         handleFormSubmit={this.handleFormSubmit}
-                        forgetPassword={this.forgetPassword}
+                        toggleForgetPassword={this.toggleForgetPassword}
                         isForgotPassword={this.state.isForgotPassword}
-                        sendEmail={this.sendEmail}
+                        forgetPasswordSubmit={this.forgetPasswordSubmit}
                         responseFacebook={this.responseFacebook}
                     />
                     : <Redirect to="/users" />
