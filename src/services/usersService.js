@@ -148,4 +148,8 @@ export default {
             console.log(err);
         }
     },
+    async resetUserPassword (formData) {
+        const response = await apiUtil.post(buildUrl('/forget-password'), formData);
+        return response.data;
+    }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import sessionService from '../services/sessionService';
 import LoginForm from './LoginForm';
+import usersService from '../services/usersService';
 
 class Login extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class Login extends Component {
             currentEmail: '',
             currentPassword: '',
             error: '',
+            resetSuccess: '',
             isForgotPassword: false
         }
     }
@@ -49,16 +51,23 @@ class Login extends Component {
             });
         }
     }
-    forgetPassword = () => {
+    toggleForgetPassword = () => {
         this.setState({
-            isForgotPassword: true
+            isForgotPassword: !this.state.isForgotPassword
         })
     }
 
-    sendEmail = () => {
-        this.setState({
-            isForgotPassword: false
-        })
+    forgetPasswordSubmit = async (event) => {
+        event.preventDefault();
+        this.setState({ error: '', success: ''});
+        const response = await usersService.resetUserPassword({ email: this.state.currentEmail });
+        if (!response.err) {
+            this.setState( {resetSuccess: response.message });
+        } else {
+            this.setState({
+                error: response.err
+            })
+        }
     }
 
     responseFacebook = async (response) => {
@@ -79,10 +88,11 @@ class Login extends Component {
                         error={this.state.error}
                         handleFormChange={this.handleFormChange}
                         handleFormSubmit={this.handleFormSubmit}
-                        forgetPassword={this.forgetPassword}
+                        toggleForgetPassword={this.toggleForgetPassword}
                         isForgotPassword={this.state.isForgotPassword}
-                        sendEmail={this.sendEmail}
+                        forgetPasswordSubmit={this.forgetPasswordSubmit}
                         responseFacebook={this.responseFacebook}
+                        resetSuccess={this.state.resetSuccess}
                     />
                     : <Redirect to="/users" />
                 }

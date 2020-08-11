@@ -3,7 +3,9 @@ import { Button } from 'react-bootstrap';
 import usersService from '../services/usersService';
 import EditProfileForm from './EditProfileForm';
 import { Redirect, Link, useParams } from "react-router-dom";
-
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { Form, Col, Row } from 'react-bootstrap';
 class Profile extends Component {
     constructor(props) {
         super(props);
@@ -18,6 +20,7 @@ class Profile extends Component {
             lookingForMale: false,
             lookingForAgeFrom: 18,
             lookingForAgeTo: 30,
+            isUpdatingAvatar: false,
             err: null
         }
     }
@@ -35,9 +38,9 @@ class Profile extends Component {
             lookingForAgeTo: currentUser.lookingForAgeTo,
             err: null
         })
-        
-        currentUser.gender === 'male' ? this.setState({male: true}) : this.setState({female: true});
-        currentUser.lookingForGender === 'male' ? this.setState({lookingForMale: true}) : this.setState({lookingForFemale: true});
+
+        currentUser.gender === 'male' ? this.setState({ male: true }) : this.setState({ female: true });
+        currentUser.lookingForGender === 'male' ? this.setState({ lookingForMale: true }) : this.setState({ lookingForFemale: true });
     }
 
     // Toggle User Gender During Edit
@@ -65,13 +68,13 @@ class Profile extends Component {
     handleFormSubmit = async event => {
         event.preventDefault();
         const updatedInformation = this.updateUser();
-        
+
         // Update User Information In Database
         const data = await usersService.update(this.props.currentUser._id, updatedInformation);
         // const updatedUser = data.updatedDocument;
 
-        if(data.err) this.setState({ err: data.err});
-            
+        if (data.err) this.setState({ err: data.err });
+
         this.setState({
             isEditing: false,
             email: '',
@@ -142,6 +145,46 @@ class Profile extends Component {
         this.fetchUser(this.props.id);
     }
 
+     // Handle Form Input Change
+     handleFormChangeImage = event => {
+        this.setState({ [event.target.id]: event.target.files });
+    }
+
+    // Upload Image
+    uploadImage = async () => {
+        const file = Array.from(this.state.newImage)[0];
+        const formData = new FormData();
+        formData.append('file', file);
+        const image = await usersService.uploadImage(formData);
+        return image;
+    }
+    // update new image
+    updateImageSubmit = async (event) => {
+        event.preventDefault();
+
+        const image = await this.uploadImage();
+
+        await usersService.updateCompletionStatus(this.props.currentUser._id, {image: image.url});
+         // Clear Local Storage
+         localStorage.clear();
+         const updatedCurrentUser = await usersService.getOne(this.props.currentUser._id);
+
+         // Reset Local Storage
+         localStorage.setItem('currentUser', JSON.stringify(updatedCurrentUser));
+
+         this.setState({
+            isUpdatingAvatar: false,
+            newImage: null
+         })
+         this.props.updateAvatar(image.url);
+    }
+
+    // 
+    toggleUpdateImage = () => {
+        this.setState({
+            isUpdatingAvatar: !this.state.isUpdatingAvatar
+        })
+    }
     render() {
         let user = {};
         if (this.props.otherUser === true) {
@@ -154,16 +197,24 @@ class Profile extends Component {
                 {this.props.isLogIn ?
                     <React.Fragment>
                         <h1 className="text-center">{this.props.otherUser ? `${user.userName}'s` : "My"} Profile</h1>
-                        {this.props.otherUser ? '' :
-                            <div className="user-actions">
-                                <Button className="edit-profile-button" variant="primary" onClick={this.toggleEdit}>Edit</Button>
-                                <Link to="/"><Button variant="danger" onClick={this.deleteUser}>Delete</Button></Link>
-                            </div>
-                        }
-
                         {!this.state.isEditing ?
                             <div className="user-profile">
-                                <img width={380} height={400} src={user.image} alt={user.userName} className="profile-image" />
+                                <img width={450} height={420} src={user.image} alt={user.userName} className="profile-image" onClick={this.toggleUpdateImage} />
+                                
+                                 {/* update image */}
+                                 {this.state.isUpdatingAvatar ?
+                                    <Form onSubmit={this.updateImageSubmit}>
+                                        <Form.Group as={Row} encType="multipart/form-data">
+                                            <Col sm={8}>
+                                                <Form.Control type="file" onChange={this.handleFormChangeImage} id="newImage" required />
+                                            </Col>
+                                        </Form.Group>
+                                        <Form.Group className="text-center">
+                                            <Button variant="primary" type="submit">Change</Button>
+                                        </Form.Group>
+                                    </Form>
+                                    : ''}
+
                                 <div>
                                     <h4 className="bolder">{user.userName}</h4>
                                     {/* Email Address */}
@@ -185,16 +236,22 @@ class Profile extends Component {
                                     <p>Looking For: {user.lookingForGender}</p>
                                     <p>From: {user.lookingForAgeFrom} years old  To: {user.lookingForAgeTo} years old</p>
                                 </div>
+                                {this.props.otherUser ? '' :
+                                    <div className="user-actions">
+                                        <Button className="edit-profile-button" variant="primary" onClick={this.toggleEdit}><EditIcon /></Button>
+                                        <Link to="/"><Button variant="danger" onClick={this.deleteUser}><DeleteForeverIcon /></Button></Link>
+                                    </div>
+                                }
                             </div>
-                            : <EditProfileForm 
-                                editingUser = {this.state}
+                            : <EditProfileForm
+                                editingUser={this.state}
                                 countries={this.props.countries}
                                 toggleEdit={this.toggleEdit}
                                 toggleGender={this.toggleGender}
                                 toggleLookingForGender={this.toggleLookingForGender}
                                 handleFormChange={this.handleFormChange}
                                 handleFormSubmit={this.handleFormSubmit}
-                              />
+                            />
                         }
                     </React.Fragment>
                     : <Redirect to="/" />

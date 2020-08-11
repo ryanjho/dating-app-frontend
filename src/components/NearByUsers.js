@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 class NearByUsers extends Component {
@@ -24,7 +24,9 @@ class NearByUsers extends Component {
                                             <div className="user-image" key={index}>
                                                 <img width={250} height={380} src={user.user.image} alt={user.userName} className="image-user" />
                                                 <div>
-                                                    <h4>{user.user.userName}</h4>
+                                                    <Link to={`/users/${user.user._id}`}>
+                                                        <h4>{user.user.userName}</h4>
+                                                    </Link>
                                                     {/* Name */}
                                                     <p><svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-emoji-laughing" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                         <path fillRule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />

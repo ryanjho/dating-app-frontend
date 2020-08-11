@@ -8,11 +8,12 @@ class LoginForm extends Component {
         const currentEmail = this.props.currentEmail;
         const currentPassword = this.props.currentPassword;
         const error = this.props.error;
+        const resetSuccess = this.props.resetSuccess;
         const handleFormChange = this.props.handleFormChange;
         const handleFormSubmit = this.props.handleFormSubmit;
-        const forgetPassword = this.props.forgetPassword;
+        const toggleForgetPassword = this.props.toggleForgetPassword;
         const isForgotPassword = this.props.isForgotPassword;
-        const sendEmail = this.props.sendEmail
+        const forgetPasswordSubmit = this.props.forgetPasswordSubmit
         return (
             <React.Fragment>
                 <Form className="login" onSubmit={handleFormSubmit}>
@@ -54,13 +55,13 @@ class LoginForm extends Component {
 
                     </Form.Group>
                     <Form.Group className="text-center">
-                        <Button variant="outline-info" onClick={forgetPassword}>Forget password?</Button>
+                        <Button variant="outline-info" onClick={toggleForgetPassword}>Forget password?</Button>
                     </Form.Group>
                 </Form>
 
                 {/* FORGET PASSWORD */}
                 {isForgotPassword ?
-                    <Form className="login" onSubmit={sendEmail}>
+                    <Form className="login" onSubmit={forgetPasswordSubmit}>
                         <h2 className="text-center h2">FORGET PASSWORD</h2>
                         <div class="modal-body mx-3">
                             <div class="md-form mb-5">
@@ -71,7 +72,15 @@ class LoginForm extends Component {
                         <Form.Group className="text-center">
                             <Button type="submit" variant="primary">Send email</Button>
                         </Form.Group>
+                        {error ?
+                        <Alert variant='danger'>
+                            {error}
+                        </Alert> : ''}
 
+                        {resetSuccess ? 
+                        <Alert variant='success'>
+                            {resetSuccess}
+                        </Alert> : ''}
 
                     </Form>
                     : ''}

@@ -15,6 +15,7 @@ import countries from 'countries-list';
 import sessionService from './services/sessionService';
 import usersService from './services/usersService';
 import UserNavigation from './components/UserNavigation';
+import User from './components/User';
 
 import Information from './components/information';
 
@@ -68,7 +69,8 @@ class App extends Component {
     const users = await usersService.getAll();
     const filterdUsers = users.filter(user => user.gender === this.state.currentUser.lookingForGender
       && user.age >= this.state.currentUser.lookingForAgeFrom
-      && user.age <= this.state.currentUser.lookingForAgeTo)
+      && user.age <= this.state.currentUser.lookingForAgeTo);
+    filterdUsers.sort(user => .5 - Math.random())
     this.setState({
       users: filterdUsers,
       foundUsers: filterdUsers.length
@@ -305,6 +307,14 @@ class App extends Component {
     socket.on('matched', (data) => this.setState({matchModalContent: data, showMatchModal: true, backgroundBlur: true}));
   }
 
+  // update Image 
+  updateAvatar = (url) => {
+    const currentUser = this.state.currentUser;
+    currentUser.image = url;
+    this.setState({
+        currentUser: currentUser
+    })
+  }
   render() {
     return (
       <ParallaxProvider>
@@ -335,7 +345,7 @@ class App extends Component {
                   />
                 }
                 />
-                <Route path='/users' render={() =>
+                <Route path='/users' exact render={() =>
                   <Main id={this.state.backgroundBlur ? 'blur' : ''}
                     isLogIn={this.state.isLogIn}
                     users={this.state.users}
@@ -345,6 +355,14 @@ class App extends Component {
                   />
                 }
                 />
+                <Route path='/users/:id' exact render={(props) =>
+                  <User 
+                    isLogIn={this.state.isLogIn}
+                    id={props.match.params.id}
+                  />
+                }
+                />
+                
 
                 <Route path='/near' render={() =>
                   <NearByUsers
@@ -378,6 +396,7 @@ class App extends Component {
                   countries={this.state.countries}
                   otherUser={false}
                   resetUpdatedCurrentUser={this.resetUpdatedCurrentUser}
+                  updateAvatar={this.updateAvatar}
                 />
               } 
               />

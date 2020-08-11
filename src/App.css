@@ -152,6 +152,7 @@ button {
 }
 .user-image {
     padding: 5%;
+    cursor: pointer;
 }
 
 .container {
@@ -164,10 +165,18 @@ button {
   justify-content: center;
   text-align: center;
   color: white;
+  background: rgba(0, 0, 0, 0.5);
+  width: fit-content;
+  margin: auto;
 }
 
 .user-actions, .profile-image {
   margin: 0 auto;
+  cursor: pointer;
+}
+
+.us {
+  cursor: pointer;
 }
 
 .user-actions {
