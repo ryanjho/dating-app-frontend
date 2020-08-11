@@ -52,7 +52,7 @@ class Information extends Component {
                             <p>
                                 JSYK, not all couple games need to lead to sex, and there are plenty of romantic (and free!) games that can help bring you and your partner closer together or at least make for an interesting date night.
                         </p>
-                            <Button variant="outline-info"><a href="womenshealthmag.com/sex-and-love/a32338336/romantic-couple-games/">Read more</a></Button>
+                            <Button variant="outline-info"><a href="https://womenshealthmag.com/sex-and-love/a32338336/romantic-couple-games/">Read more</a></Button>
                         </div>
 
                         <div class="col-lg-3 col-md-6 paper">

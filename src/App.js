@@ -16,7 +16,6 @@ import sessionService from './services/sessionService';
 import usersService from './services/usersService';
 import UserNavigation from './components/UserNavigation';
 import User from './components/User';
-
 import Information from './components/information';
 
 import Profile from './components/Profile';
@@ -27,10 +26,10 @@ import { ParallaxProvider } from 'react-scroll-parallax';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000'
 const buildUrl = apiPath => {
-    return BACKEND_URL + apiPath;
+  return BACKEND_URL + apiPath;
 };
 
-const socket = openSocket(BACKEND_URL); 
+const socket = openSocket(BACKEND_URL);
 
 class App extends Component {
   constructor(props) {
@@ -91,7 +90,7 @@ class App extends Component {
 
       // Crete new socket room after check authentication
       console.log('creating new socket room from authentication');
-      socket.emit('join', {id: this.state.currentUser._id});
+      socket.emit('join', { id: this.state.currentUser._id });
     }
   }
 
@@ -106,7 +105,7 @@ class App extends Component {
 
     // Crete new socket room
     console.log('creating new socket room');
-    socket.emit('join', {id: currentUser._id});
+    socket.emit('join', { id: currentUser._id });
   }
 
   // Logout
@@ -129,7 +128,6 @@ class App extends Component {
     this.resetAppState();
 
   }
-
   // Reset Updated Current User
   resetUpdatedCurrentUser = () => {
     const currentUser = localStorage.getItem('currentUser');
@@ -137,7 +135,6 @@ class App extends Component {
       currentUser: JSON.parse(currentUser)
     })
   }
-
   resetAppState = () => {
     this.setState({
       isLogIn: false,
@@ -254,24 +251,23 @@ class App extends Component {
     const likedUserId = event.currentTarget.getAttribute('a-key');
     const currentUserId = JSON.parse(localStorage.getItem('currentUser'))
     console.log(`${currentUserId._id} likes ${likedUserId} `);
-
     await usersService.likeUser(currentUserId._id, likedUserId);
-    await socket.emit('checkMatch', { currentUserId: currentUserId._id, likedUserId: likedUserId});
+    await socket.emit('checkMatch', { currentUserId: currentUserId._id, likedUserId: likedUserId });
 
-    // Remove liked user from UI
-    const users = this.state.users;
-      const index = users.findIndex(item => item._id === likedUserId);
-      this.setState({
-        users: [
-          ...users.slice(0, index),
-          ...users.slice(index + 1)
-        ]
-      });
+     // Remove liked user from UI
+     const users = this.state.users;
+     const index = users.findIndex(item => item._id === likedUserId);
+     this.setState({
+       users: [
+         ...users.slice(0, index),
+         ...users.slice(index + 1)
+       ]
+     });
   }
 
   // show or close modal
-   showModal = (event) => {
-    this.setState({showMatchModal: !this.state.showMatchModal});
+  showModal = (event) => {
+    this.setState({ showMatchModal: !this.state.showMatchModal });
   }
 
   // When page is loaded
@@ -281,16 +277,24 @@ class App extends Component {
     this.getLocation();
 
     // Retrieve data from socket.io server
-    socket.on('matched', (data) => this.setState({matchModalContent: data, showMatchModal: true, backgroundBlur: true}));
+    socket.on('matched', (data) => this.setState({ matchModalContent: data, showMatchModal: true, backgroundBlur: true }));
   }
 
+  // update Image 
+  updateAvatar = (url) => {
+    const currentUser = this.state.currentUser;
+    currentUser.image = url;
+    this.setState({
+        currentUser: currentUser
+    })
+  }
   render() {
     return (
       <ParallaxProvider>
-      <Router>
-        <div className="App">
-          <div className="header-body">
-             
+        <Router>
+          <div className="App">
+            <div className="header-body">
+
               <Header
                 isLogIn={this.state.isLogIn}
                 logout={this.logout}
@@ -314,7 +318,7 @@ class App extends Component {
                   />
                 }
                 />
-                <Route path='/users' exact render={() =>
+                <Route path='/users' render={() =>
                   <Main id={this.state.backgroundBlur ? 'blur' : ''}
                     isLogIn={this.state.isLogIn}
                     users={this.state.users}
@@ -324,7 +328,7 @@ class App extends Component {
                   />
                 }
                 />
-                <Route path='/users/:id' exact render={(props) =>
+                 <Route path='/users/:id' exact render={(props) =>
                   <User 
                     isLogIn={this.state.isLogIn}
                     id={props.match.params.id}
@@ -346,40 +350,42 @@ class App extends Component {
                   />
                 }
                 />
-              {/* <Route path="/profile/:id" render={(props) => 
-                <Profile 
-                  id={props.match.params.id}
-                  isLogIn={this.state.isLogIn}
-                  resetAppState={this.resetAppState}
-                  countries={this.state.countries}
-                  otherUser={true}
-                  currentUser={this.state.currentUser}
-                  
-                /> */}
-              } 
-              />
-              <Route path="/profile" render={() => 
-                <Profile 
-                  currentUser={this.state.currentUser}
-                  isLogIn={this.state.isLogIn}
-                  countries={this.state.countries}
-                  otherUser={false}
-                  resetUpdatedCurrentUser={this.resetUpdatedCurrentUser}
-                />
-              } 
-              />
-            </Switch>
+                {/* <Route path="/profile/:id" render={(props) =>
+                  <Profile
+                    id={props.match.params.id}
+                    isLogIn={this.state.isLogIn}
+                    resetAppState={this.resetAppState}
+                    countries={this.state.countries}
+                    otherUser={true}
+                    currentUser={this.state.currentUser}
 
+                  /> */}
+                }
+                />
+                <Route path="/profile" render={() =>
+                  <Profile
+                    currentUser={this.state.currentUser}
+                    isLogIn={this.state.isLogIn}
+                    resetAppState={this.resetAppState}
+                    countries={this.state.countries}
+                    otherUser={false}
+                    resetUpdatedCurrentUser={this.resetUpdatedCurrentUser}
+                    updateAvatar={this.updateAvatar}
+                  />
+                }
+                />
+              </Switch>
+
+            </div>
+            <Information />
+            <Footer />
+            <MatchModal
+              matchModalContent={this.state.matchModalContent}
+              showMatchModal={this.state.showMatchModal}
+              showModal={this.showModal}
+            />
           </div>
-          <Information />
-          <Footer />
-          <MatchModal 
-            matchModalContent={this.state.matchModalContent}
-            showMatchModal={this.state.showMatchModal}
-            showModal={this.showModal}
-          />
-        </div>
-      </Router>
+        </Router>
       </ParallaxProvider>
     )
   }

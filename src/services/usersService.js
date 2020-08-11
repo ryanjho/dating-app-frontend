@@ -28,10 +28,6 @@ export default {
         const response = await apiUtil.post(buildUrl('/'), newUser);
         return response.data;
     },
-    async update (id, updatedInformation) {
-        const response = await apiUtil.update(buildUrl(`/${id}`), updatedInformation);
-        return response.data;
-    }, 
     async delete (id) {
         const response = await apiUtil.delete(buildUrl(`/${id}`));
         return response.data;

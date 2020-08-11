@@ -42,8 +42,7 @@ class LoginForm extends Component {
                     <Form.Group className="text-center">
 
                         <FacebookLogin
-                            appId="577117482961429"
-                            
+                            appId="577117482961429"   
                             callback={this.props.responseFacebook}
                             fields="email"
                             scope="public_profile,email"

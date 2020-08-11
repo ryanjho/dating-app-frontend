@@ -33,3 +33,4 @@ export default {
         return response.data;
     }
 }
+
