@@ -4,6 +4,7 @@ import Home from './components/Home';
 import About from './components/About';
 import FAQ from './components/FAQ';
 import SignUp from './components/SignUp';
+import Likes from './components/Likes';
 import Login from './components/Login';
 import Footer from './components/Footer';
 import Main from './components/Main';
@@ -25,6 +26,7 @@ import openSocket from 'socket.io-client';
 
 import { ParallaxProvider } from 'react-scroll-parallax';
 import Chat from './components/Chat';
+import Notifications from './components/Notifications';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000'
 const buildUrl = apiPath => {
@@ -403,6 +405,20 @@ class App extends Component {
               <Route path="/messages" render={() =>
                 <Chat
                   currentUser={this.state.currentUser}
+                />
+              }
+              />
+              <Route path="/notifications" render={() => 
+                <Notifications
+                  currentUser={this.state.currentUser}
+                  isLogin={this.state.isLogin}
+                />
+              }
+              />
+              <Route path="/likes" render={() => 
+                <Likes
+                  currentUser={this.state.currentUser}
+                  isLogin={this.state.isLogin}
                 />
               }
               />
