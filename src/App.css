@@ -152,6 +152,7 @@ button {
 }
 .user-image {
     padding: 5%;
+    cursor: pointer;
 }
 
 .container {
@@ -171,6 +172,11 @@ button {
 
 .user-actions, .profile-image {
   margin: 0 auto;
+  cursor: pointer;
+}
+
+.us {
+  cursor: pointer;
 }
 
 .user-actions {

@@ -284,6 +284,14 @@ class App extends Component {
     socket.on('matched', (data) => this.setState({matchModalContent: data, showMatchModal: true, backgroundBlur: true}));
   }
 
+  // update Image 
+  updateAvatar = (url) => {
+    const currentUser = this.state.currentUser;
+    currentUser.image = url;
+    this.setState({
+        currentUser: currentUser
+    })
+  }
   render() {
     return (
       <ParallaxProvider>
@@ -365,6 +373,7 @@ class App extends Component {
                   countries={this.state.countries}
                   otherUser={false}
                   resetUpdatedCurrentUser={this.resetUpdatedCurrentUser}
+                  updateAvatar={this.updateAvatar}
                 />
               } 
               />

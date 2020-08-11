@@ -5,7 +5,7 @@ import EditProfileForm from './EditProfileForm';
 import { Redirect, Link, useParams } from "react-router-dom";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-
+import { Form, Col, Row } from 'react-bootstrap';
 class Profile extends Component {
     constructor(props) {
         super(props);
@@ -20,6 +20,7 @@ class Profile extends Component {
             lookingForMale: false,
             lookingForAgeFrom: 18,
             lookingForAgeTo: 30,
+            isUpdatingAvatar: false,
             err: null
         }
     }
@@ -144,6 +145,46 @@ class Profile extends Component {
         this.fetchUser(this.props.id);
     }
 
+     // Handle Form Input Change
+     handleFormChangeImage = event => {
+        this.setState({ [event.target.id]: event.target.files });
+    }
+
+    // Upload Image
+    uploadImage = async () => {
+        const file = Array.from(this.state.newImage)[0];
+        const formData = new FormData();
+        formData.append('file', file);
+        const image = await usersService.uploadImage(formData);
+        return image;
+    }
+    // update new image
+    updateImageSubmit = async (event) => {
+        event.preventDefault();
+
+        const image = await this.uploadImage();
+
+        await usersService.updateCompletionStatus(this.props.currentUser._id, {image: image.url});
+         // Clear Local Storage
+         localStorage.clear();
+         const updatedCurrentUser = await usersService.getOne(this.props.currentUser._id);
+
+         // Reset Local Storage
+         localStorage.setItem('currentUser', JSON.stringify(updatedCurrentUser));
+
+         this.setState({
+            isUpdatingAvatar: false,
+            newImage: null
+         })
+         this.props.updateAvatar(image.url);
+    }
+
+    // 
+    toggleUpdateImage = () => {
+        this.setState({
+            isUpdatingAvatar: !this.state.isUpdatingAvatar
+        })
+    }
     render() {
         let user = {};
         if (this.props.otherUser === true) {
@@ -158,7 +199,22 @@ class Profile extends Component {
                         <h1 className="text-center">{this.props.otherUser ? `${user.userName}'s` : "My"} Profile</h1>
                         {!this.state.isEditing ?
                             <div className="user-profile">
-                                <img width={450} height={420} src={user.image} alt={user.userName} className="profile-image" />
+                                <img width={450} height={420} src={user.image} alt={user.userName} className="profile-image" onClick={this.toggleUpdateImage} />
+                                
+                                 {/* update image */}
+                                 {this.state.isUpdatingAvatar ?
+                                    <Form onSubmit={this.updateImageSubmit}>
+                                        <Form.Group as={Row} encType="multipart/form-data">
+                                            <Col sm={8}>
+                                                <Form.Control type="file" onChange={this.handleFormChangeImage} id="newImage" required />
+                                            </Col>
+                                        </Form.Group>
+                                        <Form.Group className="text-center">
+                                            <Button variant="primary" type="submit">Change</Button>
+                                        </Form.Group>
+                                    </Form>
+                                    : ''}
+
                                 <div>
                                     <h4 className="bolder">{user.userName}</h4>
                                     {/* Email Address */}
