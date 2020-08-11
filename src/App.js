@@ -277,7 +277,12 @@ class App extends Component {
   createNewChatRoomFromModal = async (event) => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const otherUser = this.state.matchModalContent.otherUserId;
-
+    const isChatExist = await usersService.isChatExist(this.state.currentUser._id, otherUser);
+    console.log(isChatExist);
+    if (isChatExist === true) {
+      console.log('chat exists! we dont create new room');
+      return;
+    }
     const payload = 
     {
       users: [currentUser._id, otherUser],

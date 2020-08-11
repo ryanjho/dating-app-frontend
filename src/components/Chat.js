@@ -67,8 +67,6 @@ export class Chat extends Component {
     }
     scrollToBottom = () => {
         if(Object.keys(this.state.selectedUser).length > 0) {
-            console.log('scrollin');
-            console.log(this.messsageRef);
             this.messageRef.scrollTop = this.messageRef.scrollHeight;
         }
       }
