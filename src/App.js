@@ -218,7 +218,7 @@ class App extends Component {
       const lat2 = logInUsers[i].position.lat;
       const long2 = logInUsers[i].position.long
       const dist = Math.round(this.distance(lat1, long1, lat2, long2, 'K'));
-      if (dist <= 2) nearByUsers.push({
+      if (dist <= 100) nearByUsers.push({
         user: logInUsers[i],
         dist: dist
       });
