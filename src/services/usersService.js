@@ -60,28 +60,57 @@ export default {
             console.log(err);
         }
     },
-    async getAllMessages () {
+    async getAllMessages (currentUserId) {
         try {
+            // console.log(currentUserId);
+            let otherUserIndex = [];
             const response = await apiUtil.get(buildUrl(`/chat_room`));
-            const promises = response.data.map(async element => {
+            // console.log(response.data);
+            const promises = response.data.map(async (element, index) => {
                 // console.log(element);
-                const otherUserDetail = await apiUtil.get(buildUrl(`/${element.users[1]}`))
+                
+                // Check which index in users array is the other user
+                // for (let [index, value] of element.users.entries()) {
+                //     console.log(index);
+                //     if (value !== currentUserId) {
+                //         otherUserIndex.push(index);
+                //     }
+                //     console.log(otherUserIndex);
+                //     const otherUserDetail = await apiUtil.get(buildUrl(`/${element.users[otherUserIndex]}`))
+                //     console.log(otherUserDetail);
+                //     return otherUserDetail.data;
+                // }
+                // console.log(index);
+                for (let i = 0; i < element.users.length; i++) {
+                    // console.log(element.users[i] !== currentUserId);
+                    if (element.users[i] !== currentUserId) {
+                        otherUserIndex.push(i);
+                    }
+                }
+                // console.log(otherUserIndex);
+                const otherUserDetail = await apiUtil.get(buildUrl(`/${element.users[otherUserIndex[index]]}`))
+                // console.log(otherUserDetail);
                 return otherUserDetail.data;
             })
             const otherUserDetails = await Promise.all(promises);
+            // console.log(otherUserIndex);
+            console.log('OtherUserDetails');
+            console.log(otherUserDetails);
+            // console.log(response.data);
 
-            const formattedDetails = this.joinDetails(response.data, otherUserDetails);
-
+            const formattedDetails = await this.joinDetails(response.data, otherUserDetails, otherUserIndex);
+            console.log('formattedDetails');
+            console.log(formattedDetails);
             return formattedDetails;
         } catch(err) {
             console.log(err);
         }
     },
-    async joinDetails (getAllArray, otherUserDetails) {
+    async joinDetails (getAllArray, otherUserDetails, otherUserIndex) {
         let response = getAllArray;
         for (let i = 0; i < response.length; i++){
-            for (let j = 0; j < 2; j++) {
-                if (response[i].users[1] === otherUserDetails[j]._id) {
+            for (let j = 0; j < otherUserDetails.length; j++) {
+                if (response[i].users[otherUserIndex[i]] === otherUserDetails[j]._id) {
                     response[i].userName = otherUserDetails[j].userName;
                     response[i].image = otherUserDetails[j].image;
                 }

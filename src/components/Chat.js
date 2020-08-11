@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import usersService from '../services/usersService';
+import moment from 'moment';
 
 export class Chat extends Component {
     constructor(props) {
@@ -9,6 +10,7 @@ export class Chat extends Component {
             selectedUser: {},
             messages: []
         }
+        this.messsageRef = React.createRef();
     }
     selectUser = (event) => {
         const id = event.currentTarget.getAttribute('a-key');
@@ -19,21 +21,33 @@ export class Chat extends Component {
         })
         this.setState({
             selectedUser: selectedUser,
-        //     selectedBlock: id
         });
     } 
     getConversations = async () => {
-        const formattedMessages = await usersService.getAllMessages();
+        console.log('getting convo update');
+        const formattedMessages = await usersService.getAllMessages(this.props.currentUser._id);
         this.setState({
             messages: formattedMessages,
         })
+        if (Object.keys(this.state.selectedUser).length !== 0) {
+            const selectedUser = this.state.messages.find((message) => {
+                if (message._id === this.state.selectedUser._id) {
+                    return message
+                }
+            })
+            this.setState({
+                selectedUser: selectedUser,
+            });
+            
+        }
     }
     handleFormChange = event => {
         this.setState({ [event.target.id]: event.target.value })
     }
-
+    
     handleFormSubmit = async(event) => {
-        let now = new Date;
+        let now = moment().format('MMMM Do YYYY, h:mm:ss a');;
+        if (this.state.messageInput === '') return;
         const newMessage = {
             user_id: this.props.currentUser._id,
             content: this.state.messageInput,
@@ -42,16 +56,28 @@ export class Chat extends Component {
         let chatRoomId = this.state.selectedUser._id;
         const currentChatRoom = await usersService.getCurrentChatRoom(chatRoomId);
         currentChatRoom.messages.push(newMessage);
+        delete currentChatRoom['_id'];
         console.log(currentChatRoom);
-        // const newChatRoom = await usersService.sendMessage(chatRoomId, currentChatRoom);
-        // console.log('new chat room');
-        // console.log(newChatRoom);
+        const newChatRoom = await usersService.sendMessage(chatRoomId, currentChatRoom);
+        console.log('new chat room');
+        console.log(newChatRoom);
         this.setState({
             messageInput: ''
         })
     }
+    scrollToBottom = () => {
+        if(Object.keys(this.state.selectedUser).length > 0) {
+            console.log('scrollin');
+            console.log(this.messsageRef);
+            this.messageRef.scrollTop = this.messageRef.scrollHeight;
+        }
+      }
     componentDidMount() {
-        this.getConversations();
+        setInterval(() => this.getConversations(), 2000);
+        setInterval(() => this.scrollToBottom(), 10000);
+    }
+    componentDidUpdate() {
+        // this.scrollToBottom();
     }
 
     render() {
@@ -81,38 +107,26 @@ export class Chat extends Component {
                         </div>
                         
                     </header>
-                    <ul id="chat">
+                    <div id="chat-box" >
+                    <ul id="chat" ref={el => this.messageRef = el}>
                         {this.state.selectedUser.messages.length === 0 ? 
                             <h2 className="no-msg">No messages here, don't be shy!</h2>
                             : ''}
                             {this.state.selectedUser.messages.map((message, index) => {
-                                if(message.user_ID === '5f2614e068b2e523a97066da') {
                                     return(
-                                        <li className="me">
+                                        <li className={message.user_id === this.props.currentUser._id ? 'me' : 'you'}>
                                         <div class="entete">
-                                            <h3>{message.time}</h3>
+                                            <h3>{message.created_at}</h3>
                                         </div>
-                                        <div className="message">
+                                            <div className="message">
                                                 {message.content}
-                                        </div>
+                                            </div>
                                         </li>
                                         )
-                                } else {
-                                    return(
-                                        <li className="you">
-                                        <div class="entete">
-                                            <h3>{message.time}</h3>
-                                        </div>
-                                        <div className="message">
-                                                {message.content}
-                                        </div>
-                                        </li>
-                                    )
-                                }
                                 }
                             )}
-                            
                     </ul>
+                    </div>
                     <footer>
                         <textarea id="messageInput" value={this.state.messageInput} onChange={this.handleFormChange} placeholder="Type your message..."></textarea>
                         <a onClick={this.handleFormSubmit}>Send</a>

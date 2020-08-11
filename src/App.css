@@ -325,6 +325,11 @@ main{
   width: 60px;
   height: 60px;
 }
+.incoming-chat-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
 .sidebar header{
 	padding:30px 20px;
 }
@@ -467,20 +472,24 @@ main header h3{
 #chat .message{
 	padding: 10px;
 	color:#fff;
-	min-height:15px;
+	min-height:10px;
 	max-width:90%;
 	display:inline-block;
-	text-align:left;
-	border-radius:5px;
+	/* text-align:left; */
+  border-radius:5px;
+  margin-left: 5px;
+}
+.incoming-msg {
+  display: inline-block;
 }
 #chat .me{
   text-align:right;
 }
 #chat .you .message{
-  background-color:#58b666;
+  background-color:grey;
 }
 #chat .me .message{
-	background-color:#6fbced;
+	background-color:#58b666;
 }
 .no-msg {
   margin-left: 30%;

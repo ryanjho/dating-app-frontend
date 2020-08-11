@@ -364,8 +364,8 @@ class App extends Component {
                   currentUser={this.state.currentUser}
                   
                 /> */}
-              } 
-              />
+              {/* } 
+              /> */}
               <Route path="/profile" render={() => 
                 <Profile 
                   currentUser={this.state.currentUser}
